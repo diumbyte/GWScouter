@@ -1,0 +1,46 @@
+.content-headings-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.content-headings-wrapper h3 {
+    margin-right: .7rem;
+}
+
+/********** Towers Table Code *************/
+/* Towers Container & Headers */
+.towers-container {
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--secondary-dark);
+    box-shadow: 0 1px 2px rgba(0,0,0,.24), 0 1px 3px rgba(0,0,0,.12);
+    /* overflow: auto; */
+}
+
+.towers-header {
+    display: flex;
+    color: var(--primary-text);
+    padding: .6rem 1.4rem;
+    width: 100%;
+}
+
+.towers-header > div,
+.tower {
+    text-align: center;
+}
+
+.towers-name-width {
+    min-width: 120px;
+}
+
+.towers-team-width {
+    flex: 1;
+    margin: 0 1rem;
+    max-width: 100%;
+}
+
+@media (max-width: 767px) {
+    .towers-team-width {
+        margin: 0;
+    }
+}

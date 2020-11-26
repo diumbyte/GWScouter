@@ -1,0 +1,52 @@
+.customModal {
+    background-color: var(--primary-dark);
+    max-width: 800px;
+    width: 80%;
+}
+
+.tower-history-container  {
+    color: var(--primary-text);
+}
+
+.tower-history-container table {
+    border-spacing: 1px;
+    border: 1px solid var(--border-dark);
+    table-layout: fixed;
+}
+
+.tower-history-container thead tr {
+    color: #fff;
+    background-color: var(--secondary-dark);
+}
+
+.tower-history-container thead tr .username {
+    width: 25%;
+}
+
+.tower-history-container thead tr .timestamp {
+    width: 10%;
+}
+
+.tower-history-container thead tr .change {
+    width: 65%;
+}
+
+.tower-history-container tbody tr {
+    background-color: var(--tertiary-dark);
+}
+
+.tower-history-container tbody tr:nth-child(even) {
+    background-color: var(--primary-dark);
+}
+
+.tower-history-container th,
+.tower-history-container td {
+    padding: .75rem 0;
+    text-align: center;
+}
+
+.tower-history-container th:last-child,
+.tower-history-container td:last-child {
+    padding-left: 1rem;
+    text-align: left;
+}

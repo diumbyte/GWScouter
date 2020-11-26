@@ -1,0 +1,156 @@
+/* Tower Data Row */
+.tower-data-name p {
+    font-size: .9rem;
+}
+
+/* Team Unit Card */
+.tower-data-team-unit {
+    flex: 0 0 calc(33.3% - 1.75rem);
+
+    position: relative;
+
+    /* min-width: 180px; */
+    margin: 0 .75rem;
+    margin-top: .5rem;
+    margin-right: 0;
+    background-color: var(--tertiary-dark);
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.24), 0 1px 3px rgba(0,0,0,.12);
+
+    display: flex;
+}
+
+
+
+.tower-data-team-unit .team-unit-image {
+    flex: 3;
+    position: relative;
+}
+
+.tower-data-team-unit .team-unit-image .source-image {
+    object-fit: cover;
+    min-height: 135px;
+}
+
+.tower-data-team-unit .edit-overlay {
+    background-color: rgba(0,0,0,.50);
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    display: flex;
+}
+
+.edit-icon {
+    position: absolute;
+    width: 1.75rem;
+    margin: auto;
+    top: 3rem;
+    left: -1rem;
+    z-index: 1;
+    /* object-fit: unset;
+    min-height: unset; */
+    /* filter: invert(99%) sepia(46%) saturate(2%) hue-rotate(119deg) brightness(107%) contrast(100%); */
+}
+
+
+.team-unit-info {
+    flex: 2;
+    color: var(--primary-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.team-unit-info > * {
+    border-bottom: 1px solid var(--border-dark); 
+    font-size: .8rem;
+    padding: .25rem;
+}
+
+.team-unit-info .team-unit-name {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    color: var(--primary-text);
+    padding: .4rem;
+    color: #fff;
+}
+
+
+.tower-team-one .team-unit-info .team-unit-name {
+    border-bottom: 1px solid var(--primary-accent); 
+}
+
+.tower-team-two .team-unit-info .team-unit-name {
+    border-bottom: 1px solid var(--secondary-accent); 
+}
+
+.team-unit-info .set-icon {
+    max-width: 1.5rem;
+}
+
+
+
+
+.team-unit-info .team-unit-speed,
+.team-unit-info .team-unit-health {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.team-unit-info .team-unit-sets {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: unset;
+}
+
+.team-unit-sets .set-icon {
+    margin-right: 1rem;
+}
+
+/* Team Unit Artifact */
+.team-unit-artifact {
+    position: absolute;
+    z-index: 1;
+    top: -.5rem;
+    left: -1.25rem;
+    width: 2.5rem;
+}
+
+@media (max-width: 767px) {
+    .tower-data-team-unit {
+        min-width: unset;
+        flex-direction: column;
+    }
+    .team-unit-info > * {
+        padding: .1rem;
+    }
+    .team-unit-artifact {
+        width: 2rem;
+    }
+    .tower-data-team-unit .team-unit-image {
+        width: 100%;
+    }
+    .tower-data-team-unit .team-unit-info {
+        flex: 1;
+    }
+}
+
+/* Unit Input */
+.team-unit-speed p,
+.team-unit-health p {
+    border: none;
+    padding: .15rem;
+    outline: none;
+}
+
+.team-unit-speed p:focus,
+.team-unit-health p:focus {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid var(--primary-text);
+    border-radius: 3px;
+}

@@ -1,0 +1,170 @@
+[
+    {
+      "username": "StrongholdTop",
+      "towerId": 1,
+      "isStronghold": true,
+      "zone": "top",
+      "history": [],
+      "notes": [],
+      "teamOne": [
+        {
+            "enemyUnitId": 1,
+            "team": "teamOne",
+            "name": "Fallen Cecilia",
+            "unitCode": "c2002",
+            "speed": "210",
+            "health": "23000",
+            "artifact": "Aurius",
+            "artifactCode": "efk03",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 2,
+            "team": "teamOne",
+            "name": "Arbiter Vildred",
+            "unitCode": "c2007",
+            "speed": "240",
+            "health": "10000",
+            "artifact": "Moonlight Dreamblade",
+            "artifactCode": "efa03",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 3,
+            "team": "teamOne",
+            "name": "Tempest Surin",
+            "unitCode": "c2065",
+            "speed": "195",
+            "health": "8500",
+            "artifact": "Moonlight Dreamblade",
+            "artifactCode": "efa03",
+            "hasImmunity": false,
+            "hasCounter": false
+        }
+      ],
+      "teamTwo": [
+        {
+            "enemyUnitId": 4,
+            "team": "teamTwo",
+            "name": "Last Rider Krau",
+            "unitCode": "c2070",
+            "speed": "210",
+            "health": "19000",
+            "artifact": "Portrait of the Saviors",
+            "artifactCode": "ef403",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 5,
+            "team": "teamTwo",
+            "name": "Kayron",
+            "unitCode": "c1023",
+            "speed": "230",
+            "health": "8000",
+            "artifact": "Portrait of the Saviors",
+            "artifactCode": "ef403",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 6,
+            "team": "teamTwo",
+            "name": "Ruele of Light",
+            "unitCode": "c1022",
+            "speed": "190",
+            "health": "21000",
+            "artifact": "Water's Origin",
+            "artifactCode": "efh03",
+            "hasImmunity": true,
+            "hasCounter": false
+        }
+      ]
+    },
+    {
+      "username": "StrongholdMain",
+      "towerId": 5,
+      "isStronghold": true,
+      "zone": "main",
+      "history": [],
+      "notes": [],
+      "teamOne": [
+        {
+            "enemyUnitId": 31,
+            "team": "teamOne",
+            "name": "Fallen Cecilia",
+            "unitCode": "c2002",
+            "speed": "210",
+            "health": "23000",
+            "artifact": "Aurius",
+            "artifactCode": "efk03",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 32,
+            "team": "teamOne",
+            "name": "Arbiter Vildred",
+            "unitCode": "c2007",
+            "speed": "240",
+            "health": "10000",
+            "artifact": "Moonlight Dreamblade",
+            "artifactCode": "efa03",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 33,
+            "team": "teamOne",
+            "name": "Tempest Surin",
+            "unitCode": "c2065",
+            "speed": "195",
+            "health": "8500",
+            "artifact": "Moonlight Dreamblade",
+            "artifactCode": "efa03",
+            "hasImmunity": false,
+            "hasCounter": false
+        }
+      ],
+      "teamTwo": [
+        {
+            "enemyUnitId": 34,
+            "team": "teamTwo",
+            "name": "Last Rider Krau",
+            "unitCode": "c2070",
+            "speed": "210",
+            "health": "19000",
+            "artifact": "Portrait of the Saviors",
+            "artifactCode": "ef403",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 35,
+            "team": "teamTwo",
+            "name": "Kayron",
+            "unitCode": "c1023",
+            "speed": "230",
+            "health": "8000",
+            "artifact": "Portrait of the Saviors",
+            "artifactCode": "ef403",
+            "hasImmunity": true,
+            "hasCounter": false
+        },
+        {
+            "enemyUnitId": 36,
+            "team": "teamTwo",
+            "name": "Ruele of Light",
+            "unitCode": "c1022",
+            "speed": "190",
+            "health": "21000",
+            "artifact": "Water's Origin",
+            "artifactCode": "efh03",
+            "hasImmunity": true,
+            "hasCounter": false
+        }
+      ]
+    }
+]

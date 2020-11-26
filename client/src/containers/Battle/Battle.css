@@ -1,0 +1,48 @@
+/******* Stronghold Header *******/
+.stronghold-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.stronghold-header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.battle-options {
+    display: flex;
+}
+
+.battle-options .add-tower {
+    display: flex;
+    align-items: center;
+    color: var(--primary-text);
+    margin-right: 1rem;
+}
+
+.battle-options .add-tower:hover {
+    color: #fff;
+}
+
+.battle-options .add-tower:hover .svg-icon {
+    filter: var(--white-filter);
+}
+
+.battle-options .add-tower p {
+    margin-left: .5rem;
+}
+
+@media (max-width: 768px) {
+    .battle-options {
+        margin-top: 1rem;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* Search CSS */
+.search-field .react-autosuggest__suggestions-container--open  {
+    top: 60px;
+}

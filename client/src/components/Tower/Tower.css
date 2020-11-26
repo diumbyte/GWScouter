@@ -1,0 +1,63 @@
+/********** Towers Table Code *************/
+/* Towers Data Rows */
+.tower {
+    display: flex;
+    padding: .6rem .5rem;
+    max-width: 100%;
+}
+
+@media (max-width: 767px) {
+    .tower {
+        flex-wrap: wrap;
+    }
+    .tower-data-name {
+        margin: 0 auto;
+    }
+    .tower-data-team {
+        width: 100%;
+    }
+}
+
+.tower:nth-child(odd) {
+    background-color: var(--primary-dark);
+}
+
+.tower-data-team {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .75rem;
+}
+
+.tower-data-team:nth-child(1) {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-dark);
+}
+
+.tower-data-team:nth-child(2) {
+    margin-top: .5rem;
+}
+
+/* Tower Data Name Column with Actions */
+.tower-data-name {
+    padding-top: 1rem;
+    color: #fff;
+}
+
+.tower-data-action {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 767px) {
+    .tower-data-action {
+        margin: 1rem 0;
+    }
+}
+
+/* Tower Team Container */
+.tower-data-teams-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

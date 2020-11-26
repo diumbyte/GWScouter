@@ -1,0 +1,9 @@
+.customModal {
+    background-color: var(--primary-dark);
+    max-width: 800px;
+    width: 80%;
+}
+
+/* .speed-calc-container {
+    display: flex;
+} */

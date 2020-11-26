@@ -1,0 +1,60 @@
+.guild-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+.invite-container {
+    background-color: var(--secondary-dark);
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    border: 2px solid var(--border-dark);
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.invite-icons > .svg-icon {
+    display: inline-block;
+    padding: 0 .5rem;
+}
+
+/* Table */
+.guild-container table {
+    border-spacing: 1px;
+    border: 1px solid var(--border-dark);
+    table-layout: fixed;
+}
+
+.guild-container thead tr {
+    color: #fff;
+    background-color: var(--secondary-dark);
+}
+
+.guild-container thead tr .username {
+    width: 80%;
+}
+
+.guild-container thead tr .timestamp {
+    width: 10%;
+}
+
+.guild-container tbody tr {
+    background-color: var(--tertiary-dark);
+}
+
+.guild-container tbody tr:nth-child(even) {
+    background-color: var(--primary-dark);
+}
+
+.guild-container th,
+.guild-container td {
+    padding: .75rem 0;
+    text-align: center;
+}
+
+.guild-container td .svg-icon {
+    margin: auto;
+}

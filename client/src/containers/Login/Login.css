@@ -1,0 +1,25 @@
+.white-svg-icon {
+    filter: invert(100%) sepia(0%) saturate(7490%) hue-rotate(15deg) brightness(104%) contrast(102%);
+}
+
+.login-button {
+    display: flex;
+    cursor: pointer;
+    margin: 1rem .5rem 0 0;
+    width: 100%;
+    max-width: 400px;
+    padding: 1.5rem;
+    border-radius: 5px;
+    background-color: #677bc4;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.login-button button {
+    color: #fff;
+    outline: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}

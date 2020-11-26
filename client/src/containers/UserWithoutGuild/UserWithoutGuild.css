@@ -1,0 +1,28 @@
+.no-guild-container {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.no-guild-container h3 {
+    margin: 2rem 0;
+}
+
+.create-guild-container {
+    display: flex;
+    justify-content: center;
+}
+
+.no-guild-container .or-block {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.create-guild-container .svg-icon {
+    margin-right: 1rem;
+}
+

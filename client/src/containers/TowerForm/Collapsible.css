@@ -1,0 +1,42 @@
+/*********** Collapsible Code ***********/
+.Collapsible__trigger {
+    width: 100%;
+    display: block;
+    color: #fff;
+    padding: 1rem;
+    background-color: var(--secondary-dark);
+    border-radius: 5px 5px 0 0;
+}
+
+.Collapsible .Collapsible__trigger {
+    border-bottom: 2px solid var(--primary-accent);
+
+}
+.Collapsible:nth-child(3) .Collapsible__trigger {
+    border-bottom: 2px solid var(--secondary-accent);
+}
+
+.Collapsible__contentInner {
+    border: 2px solid var(--border-dark);
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    padding: .5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width:768px) {
+    .Collapsible__contentInner {
+        padding: 0;
+    }
+}
+
+/* Chevron code */
+.Collapsible__trigger:before {
+    display: inline-block;
+    content: '\2B9F';
+    margin-right: .5rem;
+}
+
+.Collapsible__trigger.is-open:before {
+    transform: rotate(-180deg);
+}

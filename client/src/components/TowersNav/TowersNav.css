@@ -1,0 +1,30 @@
+.stronghold-nav {
+    padding: 0;
+    background-color: var(--tertiary-dark);
+}
+
+.stronghold-nav-list {
+    list-style: none;
+    display: flex;
+}
+
+.stronghold-nav-list .stronghold-nav-item {
+    flex: 1;
+}
+
+.stronghold-nav-list .stronghold-nav-item a {
+    display: inline-block;
+    color: var(--primary-text);
+    padding: 1rem 0rem;
+    text-align: center;
+    width: 100%;
+}
+
+.stronghold-nav-list .current-stronghold a {
+    color: #fff;
+}
+
+.stronghold-nav-list .stronghold-nav-item a.current-stronghold {
+    border-bottom: 3px solid var(--secondary-accent);
+    color: #fff;
+}
