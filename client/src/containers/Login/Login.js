@@ -19,10 +19,11 @@ class Login extends Component {
     render() {
         return (
             <div className="login-container">
-                <div className="login-button" onClick={this.onDiscordLoginClick}>
+                {/* <a className="login-button" href="/auth/discord" onClick={this.onDiscordLoginClick}> */}
+                <a className="login-button" href="/auth/discord">
                     <img src={DiscordIcon} className="svg-icon white-svg-icon" alt="Discord Icon"/>
                     <button>Login with Discord</button>
-                </div>
+                </a>
             </div>
         );
     }

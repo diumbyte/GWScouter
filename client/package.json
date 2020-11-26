@@ -8,7 +8,9 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "body-scroll-lock": "^3.1.5",
+    "concurrently": "^5.3.0",
     "fuse.js": "^6.4.3",
+    "http-proxy-middleware": "^1.0.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-autosuggest": "^10.0.3",
@@ -26,9 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

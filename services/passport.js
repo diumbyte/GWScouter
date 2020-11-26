@@ -11,7 +11,7 @@ passport.deserializeUser( async (id, done) => {
     const user = await db('users')
                         .select('*')
                         .where({id});
-    done(null, user);
+    done(null, user[0]);
 });
 
 passport.use(new DiscordStrategy({
@@ -32,9 +32,10 @@ passport.use(new DiscordStrategy({
                 username,
                 discord_id
             });
-            
-            done(null, newUser);
+            console.log("New user", newUser);
+            done(null, newUser[0]);
         } else {
+            console.log("Existing user", user);
             done(null, user[0]);
         }
     })
