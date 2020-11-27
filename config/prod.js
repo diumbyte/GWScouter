@@ -11,5 +11,5 @@ module.exports = {
             rejectUnauthorized: false
         }
     },
-    cookieKey: 'hjk3h1kj1nbdasdbnmdsa341456426'
+    cookieKey: process.env.COOKIE_KEY
 }
