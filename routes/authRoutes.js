@@ -15,8 +15,12 @@ module.exports = (app) => {
     });
 
     app.get('/auth/current_user', (req, res) => {
-        const { username } = req.user;
-        res.send(username);
+        if(req.user) {
+            const { username } = req.user;
+            return res.status(200).json(username);
+        }
+
+        res.status(200).json();
     });
 
     app.get('/auth/user_profile', requireLogin, async (req, res) => {

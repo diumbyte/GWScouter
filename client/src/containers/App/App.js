@@ -6,7 +6,7 @@ import TowerForm from '../TowerForm/TowerForm';
 import Guild from '../Guild/Guild';
 import LoginPage from '../LoginPage/LoginPage';
 import UserWithoutGuild from '../UserWithoutGuild/UserWithoutGuild';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import './App.css';
 import User from '../User/User';
 
@@ -18,6 +18,9 @@ const App = () => {
       <Main>
           <Switch>
             <Route exact path="/">Home page</Route>
+            <Route exact path="/Home">
+              <Redirect to="/"/>
+            </Route>
             <Route exact path="/User" component={ User }></Route>
             <Route exact path="/Login" component={ LoginPage }></Route>
             <Route exact path="/Guild" component={Guild}></Route>

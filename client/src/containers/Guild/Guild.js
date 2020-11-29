@@ -23,8 +23,11 @@ class Guild extends Component {
             guildName, invite, usersInGuild, userIsGuildAdmin
         }} = await axios.get('/api/guild');
 
+        console.log(userIsGuildAdmin);
+
         this.setState({
             guildName,
+            userIsGuildAdmin,
             guildMembers: usersInGuild, 
             guildInviteLink: `${process.env.PUBLIC_URL}/${invite}`
         });
@@ -82,7 +85,7 @@ class Guild extends Component {
     }
     
     render() {
-        const { guildName } = this.state;
+        const { guildName, userIsGuildAdmin } = this.state;
         return (
             <div className="guild-container">
                 <h2 className="guild-name">{guildName}</h2>
@@ -95,8 +98,9 @@ class Guild extends Component {
                             className="svg-icon" 
                             alt="Copy invite link icon"
                             onClick={this.onCopyInviteLink}
-                        />
+                        /> 
                         <img 
+                            style={!userIsGuildAdmin ? {display: 'none'} : {}}
                             src={RefreshIcon} 
                             className="svg-icon" 
                             onClick={this.onRefreshInviteLink}

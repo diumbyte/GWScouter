@@ -7,13 +7,15 @@ import './User.css';
 class User extends Component {
     constructor() {
         super();
-        this.state = {
+
+        this.originalState = {
             userId: 0,
             username: '',
             guildName: '',
             guildId: 0,
             isEditingName: false
         }
+        this.state = this.originalState;
     }
 
     componentDidMount = async () => {
@@ -59,7 +61,7 @@ class User extends Component {
 
     onLogout = async () => {
         await axios.get('/auth/logout');
-        this.props.history.go(0);
+        window.location.href = "/Home";
     }
 
     onLeaveGuild = async () => {
@@ -76,7 +78,7 @@ class User extends Component {
 
     render() {
         const { guildName, guildId, username, userId, isEditingName} = this.state;
-
+        
         return (
             <div className="profile-container">
                 <div className="heading">
@@ -118,7 +120,7 @@ class User extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="submit-button logout-button" onClick={this.onLogout}>
+                    <div href="/Home" className="submit-button logout-button" onClick={this.onLogout}>
                         <button>Logout</button>
                     </div>
                 </div>

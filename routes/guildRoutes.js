@@ -18,7 +18,7 @@ module.exports = (app) => {
                                 .select('username', 'id as userId')
                                 .where({guild_id: req.user.guild_id});
 
-        const userIsGuildAdmin = await db('user_guild_roles') 
+        const { is_admin : userIsGuildAdmin} = await db('user_guild_roles') 
                                         .select('is_admin')
                                         .where({
                                             user_id: req.user.id,

@@ -18,10 +18,13 @@ class Header extends Component {
     componentDidMount = async () => {
         const { data } = await axios.get('/auth/current_user');
 
-        this.setState({
-            isLoggedIn: true,
-            username: data
-        })
+        // If the user is not logged in then data is null => returns false
+        if(data) {
+            this.setState({
+                isLoggedIn: true,
+                username: data
+            })
+        }
     }
 
     renderHeaderItems = () => {

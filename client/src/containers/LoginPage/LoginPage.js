@@ -1,3 +1,4 @@
+import { withRouter } from 'react-router-dom';
 import './LoginPage.css';
 import DiscordIcon from '../../assets/discord.svg';
 
@@ -12,4 +13,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default withRouter(Login);
