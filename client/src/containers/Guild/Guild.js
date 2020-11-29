@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import './Guild.css'
@@ -11,6 +12,7 @@ class Guild extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: 0,
             guildName: '',
             userIsGuildAdmin: false,
             guildMembers: [],
@@ -19,17 +21,24 @@ class Guild extends Component {
     }
 
     componentDidMount = async () => {
-        const { data : {
-            guildName, invite, usersInGuild, userIsGuildAdmin
-        }} = await axios.get('/api/guild');
+        const { data} = await axios.get('/api/guild');
+        console.log("test");
 
-        console.log(userIsGuildAdmin);
+        if(data.error) {
+            this.props.history.push('/NoGuild');
+            return;
+        }
+
+        const {
+            userId, guildName, invite, usersInGuild, userIsGuildAdmin
+        } = data;
 
         this.setState({
+            userId,
             guildName,
             userIsGuildAdmin,
             guildMembers: usersInGuild, 
-            guildInviteLink: `${process.env.PUBLIC_URL}/${invite}`
+            guildInviteLink: `${process.env.PUBLIC_URL}/Guild/Join/${invite}`
         });
     }
 
@@ -45,7 +54,7 @@ class Guild extends Component {
 
         const newInviteCode = res.data;
 
-        this.setState({guildInviteLink: `${process.env.PUBLIC_URL}/${newInviteCode}`});
+        this.setState({guildInviteLink: `${process.env.PUBLIC_URL}/Guild/Join/${newInviteCode}`});
     }
 
     onRemoveMember = async (userId) => {
@@ -67,18 +76,27 @@ class Guild extends Component {
     }
 
     buildTableData = () => {
+        const { userId, userIsGuildAdmin } = this.state;
         return this.state.guildMembers.map((item, idx) => {
             return (
                 <Tr key={idx}>
                     <Td>{`${item.username}`}</Td>
-                    <Td>
-                        <img 
-                            src={RemoveIcon} 
-                            alt="Remove member from guild icon"
-                            className="svg-icon"
-                            onClick={() => this.onRemoveMember(item.userId)}
-                        />
-                    </Td>
+                    { !userIsGuildAdmin
+                        ? <></>
+                        :
+                            <Td>
+                                {   userId === item.userId
+                                    ? <></>
+                                    : 
+                                    <img 
+                                        src={RemoveIcon} 
+                                        alt="Remove member from guild icon"
+                                        className="svg-icon"
+                                        onClick={() => this.onRemoveMember(item.userId)}
+                                    />
+                                }
+                            </Td>
+                    }
                 </Tr>
             );
         });
@@ -112,7 +130,10 @@ class Guild extends Component {
                     <Thead>
                         <Tr>
                             <Th className="username">Username</Th>
-                            <Th className="remove">Remove</Th>
+                            { !userIsGuildAdmin 
+                                ? <></> 
+                                : <Th className="remove">Remove</Th>
+                            }
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -124,4 +145,4 @@ class Guild extends Component {
     }
 }
 
-export default Guild;
+export default withRouter(Guild);

@@ -11,13 +11,13 @@ module.exports = (app) => {
 
     app.get('/auth/logout', (req, res) => {
         req.logout();
-        res.redirect('/');
+        res.redirect('/index.html');
     });
 
     app.get('/auth/current_user', (req, res) => {
         if(req.user) {
-            const { username } = req.user;
-            return res.status(200).json(username);
+            const {discord_id, ...user} = req.user;
+            return res.status(200).json(user);
         }
 
         res.status(200).json();
@@ -26,13 +26,16 @@ module.exports = (app) => {
     app.get('/auth/user_profile', requireLogin, async (req, res) => {
         const { user : {id} } = req;
         const userProfile = await db
-                    .select('users.*', 'guilds.name as guild_name')
+                    .select('users.*', 'guilds.name as guild_name', 'guilds.invite')
                     .from('users')
                     .leftJoin('guilds', 'users.guild_id', 'guilds.id')
                     .where('users.id','=',id)
                     .first();
 
-        res.json(userProfile);
+        // Don't include discord_id in returned JSON
+        const { discord_id,...userToReturn} = userProfile;
+
+        res.json(userToReturn);
     });
 
     app.post('/auth/user', requireLogin, async (req, res) => {
@@ -47,7 +50,10 @@ module.exports = (app) => {
         // User is requesting to leave current guild
         if (req.user.guild_id !== req.body.guild_id) {
             await db('user_guild_roles')
-                .where({guild_id: req.user.guild_id})
+                .where({
+                    guild_id: req.user.guild_id,
+                    user_id: req.user.id
+                })
                 .del();
         }
 

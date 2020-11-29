@@ -11,24 +11,26 @@ class Header extends Component {
         super();
         this.state = {
             isLoggedIn: false,
-            username: ''
+            username: '',
+            guildId: 0
         }
     }
 
     componentDidMount = async () => {
         const { data } = await axios.get('/auth/current_user');
-
+        const { username, guild_id : guildId } = data;
         // If the user is not logged in then data is null => returns false
         if(data) {
             this.setState({
                 isLoggedIn: true,
-                username: data
+                username: username,
+                guildId
             })
         }
     }
 
     renderHeaderItems = () => {
-        const { isLoggedIn, username } = this.state;
+        const { isLoggedIn, username, guildId } = this.state;
         if(isLoggedIn) {
             return (
                 <>
@@ -38,7 +40,7 @@ class Header extends Component {
                         </NavLink>
                     </li>
                     <li className="main-nav-item">
-                        <NavLink to="/Guild" activeClassName="current-link" >
+                        <NavLink to={guildId ? "/Guild" : "/NoGuild"} activeClassName="current-link" >
                             <img className="svg-icon" src={guildIcon} alt="Guild icon"/><span className="main-nav-item-text">Guild</span>
                         </NavLink>
                     </li>

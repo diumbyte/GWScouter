@@ -74,6 +74,7 @@ class User extends Component {
             guildId: 0,
             guildName: ''
         });
+        this.props.history.go(0);
     }
 
     render() {

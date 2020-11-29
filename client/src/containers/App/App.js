@@ -9,6 +9,7 @@ import UserWithoutGuild from '../UserWithoutGuild/UserWithoutGuild';
 import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import './App.css';
 import User from '../User/User';
+import JoinGuild from '../JoinGuild/JoinGuild';
 
 const App = () => {
   
@@ -23,7 +24,9 @@ const App = () => {
             </Route>
             <Route exact path="/User" component={ User }></Route>
             <Route exact path="/Login" component={ LoginPage }></Route>
+            <Route exact path="/Guild/Join/:inviteCode" component={JoinGuild}></Route>
             <Route exact path="/Guild" component={Guild}></Route>
+            <Route exact path="/NoGuild" component={UserWithoutGuild}></Route>
             {/* Forms */}
             <Route exact path="/Battle/Unit/:unitId" component={UnitForm} />
             <Route exact path="/Battle/Tower/New" component={TowerForm} />

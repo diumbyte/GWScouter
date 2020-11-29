@@ -4,6 +4,7 @@ import 'react-responsive-modal/styles.css';
 import TextInput from '../../components/TextInput/TextInput'
 import AddIcon from '../../assets/plus-circle.svg';
 import './UserWithoutGuild.css';
+import axios from 'axios';
 
 class UserWithoutGuild extends Component {
     constructor() {
@@ -17,14 +18,22 @@ class UserWithoutGuild extends Component {
     onOpenModal = () => {this.setState({openModal: true})}
     onCloseModal = () => {this.setState({openModal: false})}
     onInputChange = (e) => {this.setState({guildName: e.target.value})}
-    handleFormSubmit = (e) => {
+
+    handleFormSubmit = async (e) => {
         e.preventDefault();
-        // console.log("Submitted");
-        console.log(this.props);
+        const { guildName } = this.state;
+
+        if(guildName.length === 0) {
+            return; 
+        }
 
         //TODO: API call to create
+        await axios.post('/api/guild/new', {
+            guildName
+        })
+        
         this.onCloseModal();
-        this.props.history.push("/Guild");
+        window.location.href = "/Guild";
     }
 
     render() {
