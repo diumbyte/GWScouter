@@ -5,3 +5,7 @@
     border: 0;
     color: var(--primary-text);
 }
+
+.form-group:focus-within {
+    border-bottom: 3px solid var(--secondary-accent);
+}

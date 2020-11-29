@@ -5,36 +5,29 @@ import './Guild.css'
 import CopyIcon from '../../assets/content-copy.svg';
 import RefreshIcon from '../../assets/refresh.svg';
 import RemoveIcon from '../../assets/minus-circle.svg';
+import axios from 'axios';
 
 class Guild extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            guildName: '',
+            userIsGuildAdmin: false,
             guildMembers: [],
             guildInviteLink: ''
         }
     }
 
-    componentDidMount() {
-        // TODO: API call for guild members
-        const updatedList = [
-            {
-                username: 'usernameOne',
-                userId: 1
-            },
-            {
-                username: 'usernameTwo',
-                userId: 2
-            },
-            {
-                username: 'usernameThree',
-                userId: 3
-            },
-        ]
+    componentDidMount = async () => {
+        const { data : {
+            guildName, invite, usersInGuild, userIsGuildAdmin
+        }} = await axios.get('/api/guild');
 
-        const guildInviteLink = `${process.env.PUBLIC_URL}/${'HGaXgRDX'}`;
-
-        this.setState({guildMembers: updatedList, guildInviteLink: guildInviteLink});
+        this.setState({
+            guildName,
+            guildMembers: usersInGuild, 
+            guildInviteLink: `${process.env.PUBLIC_URL}/${invite}`
+        });
     }
 
     onCopyInviteLink = () => {
@@ -43,21 +36,31 @@ class Guild extends Component {
         navigator.clipboard.writeText(guildInviteLink);
     }
 
-    onRefreshInviteLink = () => {
+    onRefreshInviteLink = async () => {
         // TODO: API call to refresh guild invite link
+        const res = await axios.post('/api/guild/invite');
 
-        const newInviteCode = "qMnaptA";
+        const newInviteCode = res.data;
+
         this.setState({guildInviteLink: `${process.env.PUBLIC_URL}/${newInviteCode}`});
     }
 
-    onRemoveMember = (userId) => {
+    onRemoveMember = async (userId) => {
         const listWithoutRemovedMember = this.state.guildMembers.filter(mbr => mbr.userId !== userId);
+        
+        // TODO: API call to remove member from DB
+        const { status } = await axios.post('/api/guild/user', {
+            userId
+        })
+
+        if (status !== 200) {
+            return;
+        }
 
         this.setState({
             guildMembers: listWithoutRemovedMember
         })
 
-        // TODO: API call to remove member from DB
     }
 
     buildTableData = () => {
@@ -79,9 +82,11 @@ class Guild extends Component {
     }
     
     render() {
+        const { guildName } = this.state;
         return (
             <div className="guild-container">
-                <h2>Guild</h2>
+                <h2 className="guild-name">{guildName}</h2>
+                <h3>Invite Link:</h3>
                 <div className="invite-container">
                     <p className="invite-text">{this.state.guildInviteLink}</p>
                     <div className="invite-icons">
@@ -94,6 +99,7 @@ class Guild extends Component {
                         <img 
                             src={RefreshIcon} 
                             className="svg-icon" 
+                            onClick={this.onRefreshInviteLink}
                             alt="Refresh invite link icon"
                         />
                     </div>

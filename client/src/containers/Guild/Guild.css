@@ -5,6 +5,11 @@
     color: #fff;
 }
 
+.guild-name {
+    border-bottom: 2px solid var(--border-dark);
+    padding-bottom: .5rem;
+}
+
 .invite-container {
     background-color: var(--secondary-dark);
     padding: 1rem;

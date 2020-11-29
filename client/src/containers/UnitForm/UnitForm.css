@@ -101,10 +101,9 @@
     border-radius: 5px;
     background-color: var(--primary-accent);
     text-align: center;
-    
 }
 
-.submit-button button[type="submit"] {
+.submit-button button {
     color: #fff;
     outline: 0;
     border: 0;

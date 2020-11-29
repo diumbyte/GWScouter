@@ -6,7 +6,8 @@ const passport = require('passport');
 require('./services/passport');
 app.disable('x-powered-by');
 
-
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());   
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -18,6 +19,8 @@ app.use(passport.session());
 
 
 require('./routes/authRoutes')(app);
+require('./routes/guildRoutes')(app);
+
 
 if (process.env.NODE_ENV === 'production') {
     // Express will serve up production assets like our main.js/css file

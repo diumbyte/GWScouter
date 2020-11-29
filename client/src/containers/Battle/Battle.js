@@ -82,16 +82,16 @@ class Battle extends Component  {
             <TowersNav />
             <Switch>
                 {/* Zones */}
-                <Route exact path={`${path}/Top`} component={() => 
+                <Route exact path={`${path}/top`} component={() => 
                     <Zone filteredTowersList={this.filteredTowersList("top")} /> } 
                 />
-                <Route exact path={`${path}/Mid`} component={() => 
+                <Route exact path={`${path}/mid`} component={() => 
                     <Zone filteredTowersList={this.filteredTowersList("mid")} /> } 
                 />
-                <Route exact path={`${path}/Bot`} component={() => 
+                <Route exact path={`${path}/bot`} component={() => 
                     <Zone filteredTowersList={this.filteredTowersList("bot")} /> } 
                 />
-                <Route path={`${path}/Main`} component={() => 
+                <Route path={`${path}/main`} component={() => 
                     <Zone filteredTowersList={this.filteredTowersList("main")} /> } 
                 />
                 {/* Default route */}

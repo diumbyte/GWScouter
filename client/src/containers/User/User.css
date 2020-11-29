@@ -1,0 +1,42 @@
+.profile-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.heading {
+    width: 100%;
+    border-bottom: 1px solid var(--border-dark);
+}
+
+
+.row { 
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.row > * {
+    text-align: center;
+}
+
+.guild-button {
+    background-color: red;
+    margin: 0 auto;
+    width: 40%;
+}
+
+.edit-button {
+    margin: 0 auto;
+    width: 40%;
+}
+
+@media (max-width:768px) {
+    .submit-button {
+        width: 100%;
+    }
+}
+
+.row:last-of-type {
+    justify-content: center;
+}

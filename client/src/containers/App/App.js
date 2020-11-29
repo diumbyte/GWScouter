@@ -4,12 +4,13 @@ import Battle from '../Battle/Battle';
 import UnitForm from '../UnitForm/UnitForm';
 import TowerForm from '../TowerForm/TowerForm';
 import Guild from '../Guild/Guild';
-import Login from '../Login/Login';
+import LoginPage from '../LoginPage/LoginPage';
 import UserWithoutGuild from '../UserWithoutGuild/UserWithoutGuild';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import './App.css';
+import User from '../User/User';
 
-const App = (props) => {
+const App = () => {
   
   return (
     <>
@@ -17,7 +18,8 @@ const App = (props) => {
       <Main>
           <Switch>
             <Route exact path="/">Home page</Route>
-            <Route exact path="/Login" component={Login}></Route>
+            <Route exact path="/User" component={ User }></Route>
+            <Route exact path="/Login" component={ LoginPage }></Route>
             <Route exact path="/Guild" component={Guild}></Route>
             {/* Forms */}
             <Route exact path="/Battle/Unit/:unitId" component={UnitForm} />
