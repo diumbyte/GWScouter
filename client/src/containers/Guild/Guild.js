@@ -13,6 +13,7 @@ class Guild extends Component {
         super(props);
         this.state = {
             userId: 0,
+            guildId: 0,
             guildName: '',
             userIsGuildAdmin: false,
             guildMembers: [],
@@ -21,8 +22,7 @@ class Guild extends Component {
     }
 
     componentDidMount = async () => {
-        const { data} = await axios.get('/api/guild');
-        console.log("test");
+        const { data } = await axios.get('/api/guild');
 
         if(data.error) {
             this.props.history.push('/NoGuild');
@@ -30,11 +30,13 @@ class Guild extends Component {
         }
 
         const {
-            userId, guildName, invite, usersInGuild, userIsGuildAdmin
+            userId, guildName, invite, usersInGuild, userIsGuildAdmin, guildId
         } = data;
 
+        console.log(usersInGuild);
         this.setState({
             userId,
+            guildId, 
             guildName,
             userIsGuildAdmin,
             guildMembers: usersInGuild, 
@@ -57,13 +59,31 @@ class Guild extends Component {
         this.setState({guildInviteLink: `${process.env.PUBLIC_URL}/Guild/Join/${newInviteCode}`});
     }
 
+    onEditMember = (idx) => async (e) => {
+        const { guildMembers, guildId } = this.state;
+        const [...guildMembersCopy] = guildMembers;
+        const { userId, isAdmin, username} = guildMembers[idx];
+
+        await axios.post(`/api/guild/user/${userId}`, {
+            newIsAdmin: !isAdmin,
+            guildId
+        });
+        
+        guildMembersCopy[idx] = {
+            userId,
+            isAdmin: !isAdmin,
+            username
+        }
+
+        this.setState({
+            guildMembers: guildMembersCopy
+        })
+    }
+
     onRemoveMember = async (userId) => {
         const listWithoutRemovedMember = this.state.guildMembers.filter(mbr => mbr.userId !== userId);
         
-        // TODO: API call to remove member from DB
-        const { status } = await axios.post('/api/guild/user', {
-            userId
-        })
+        const { status } = await axios.delete(`/api/guild/user/${userId}`);
 
         if (status !== 200) {
             return;
@@ -76,14 +96,28 @@ class Guild extends Component {
     }
 
     buildTableData = () => {
-        const { userId, userIsGuildAdmin } = this.state;
-        return this.state.guildMembers.map((item, idx) => {
+        const { userId, userIsGuildAdmin, guildMembers } = this.state;
+        return guildMembers.map((item, idx) => {
             return (
                 <Tr key={idx}>
                     <Td>{`${item.username}`}</Td>
                     { !userIsGuildAdmin
                         ? <></>
                         :
+                            <>
+                            <Td>
+                                {   userId === item.userId
+                                    ? <></>
+                                    : 
+                                    <input 
+                                        type="checkbox" 
+                                        checked={guildMembers[idx].isAdmin}
+                                        value={guildMembers[idx].isAdmin}
+                                        onChange={this.onEditMember(idx)}
+                                    />
+
+                                }
+                            </Td>
                             <Td>
                                 {   userId === item.userId
                                     ? <></>
@@ -96,6 +130,7 @@ class Guild extends Component {
                                     />
                                 }
                             </Td>
+                            </>
                     }
                 </Tr>
             );
@@ -132,7 +167,11 @@ class Guild extends Component {
                             <Th className="username">Username</Th>
                             { !userIsGuildAdmin 
                                 ? <></> 
-                                : <Th className="remove">Remove</Th>
+                                :
+                                    <>
+                                    <Th className="edit">Is Admin?</Th>
+                                    <Th className="remove">Remove</Th>
+                                    </>
                             }
                         </Tr>
                     </Thead>

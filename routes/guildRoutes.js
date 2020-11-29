@@ -21,15 +21,20 @@ module.exports = (app) => {
     
     app.get('/api/guild', requireLogin, requireGuild, async (req, res) => {
         const guildRes = await db('guilds')
-                            .select('name as guild_name', 'invite')
+                            .select('id as guild_id', 'name as guild_name', 'invite')
                             .where({id: req.user.guild_id})
                             .first();
 
-        const {guild_name, invite} = guildRes;
+        const {guild_name, invite, guild_id} = guildRes;
 
         const usersInGuild = await db('users')
-                                .select('username', 'id as userId')
-                                .where({guild_id: req.user.guild_id});
+                                .select(
+                                    'users.username', 
+                                    'users.id as userId', 
+                                    'user_guild_roles.is_admin as isAdmin'
+                                )
+                                .join('user_guild_roles', 'users.id', 'user_guild_roles.user_id')
+                                .where({'users.guild_id': req.user.guild_id});
 
         const adminResult = await db('user_guild_roles') 
                                         .select('is_admin')
@@ -44,6 +49,7 @@ module.exports = (app) => {
 
         res.status(200).json({
             userId: req.user.id,
+            guildId: guild_id,
             guildName: guild_name,
             invite,
             usersInGuild,
@@ -51,10 +57,10 @@ module.exports = (app) => {
         });
     })
 
-    app.post('/api/guild/user', requireLogin, requireGuildAdmin, async (req, res) => {
-        const {userId} = req.body;
+    // Edit User guildId property
+    app.delete('/api/guild/user/:userId', requireLogin, requireGuildAdmin, async (req, res) => {
+        const {userId} = req.params;
 
-        console.log(userId);
         // Removing user from guild
         await db('users')
                 .where({
@@ -76,6 +82,28 @@ module.exports = (app) => {
         res.status(200).json("Success");
     })
 
+    // Edit User isAdmin property of guild
+    app.post('/api/guild/user/:userId', requireLogin, requireGuildAdmin, async (req, res) => {
+        const { userId } = req.params;
+        const { newIsAdmin, guildId } = req.body;
+
+        console.log(guildId);
+
+        if(guildId !== req.user.guild_id) {
+            return res.status(400).json("You are not authorized");
+        }
+
+        await db('user_guild_roles')
+                .where({
+                    user_id: userId
+                })
+                .update({
+                    is_admin: newIsAdmin
+                });
+
+        res.status(200).json("Success");
+    })
+    
     app.post('/api/guild/invite', requireLogin, requireGuildAdmin, async (req, res) => {
         
         const newInviteLink = await generateNewInviteCode(db);
@@ -132,6 +160,7 @@ module.exports = (app) => {
     app.post('/api/guild/join/:inviteCode', requireLogin, async (req, res) => {
         const { inviteCode } = req.params;
 
+        // Get guild id from inviteCode
         const guildRes = await db('guilds')
                             .select('id')
                             .where({
@@ -145,12 +174,21 @@ module.exports = (app) => {
 
         const { id : guildId } = guildRes;
 
+        // Update user profile to joining guild
         await db('users')
                 .where({
                     id: req.user.id
                 })
                 .update({
                     guild_id: guildId
+                });
+
+        // Update user_guild_roles. By default set to regular user
+        await db('user_guild_roles')
+                .insert({
+                    guild_id: guildId,
+                    user_id: req.user.id,
+                    is_admin: false
                 });
         
         res.status(200).json("Success");

@@ -39,11 +39,12 @@
 }
 
 .guild-container thead tr .username {
-    width: 80%;
+    width: 70%;
 }
 
-.guild-container thead tr .timestamp {
-    width: 10%;
+.guild-container thead tr .remove, 
+.guild-container thead tr .edit {
+    width: 15%;
 }
 
 .guild-container tbody tr {
