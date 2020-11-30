@@ -105,7 +105,6 @@ module.exports = (app) => {
     })
     
     app.post('/api/guild/invite', requireLogin, requireGuildAdmin, async (req, res) => {
-        
         const newInviteLink = await generateNewInviteCode(db);
 
         await db('guilds')
@@ -169,7 +168,7 @@ module.exports = (app) => {
                             .first();
 
         if(!guildRes) {
-            return res.status(401).json("No guild found");
+            return res.status(409).send("No guild found");
         }
 
         const { id : guildId } = guildRes;

@@ -17,14 +17,19 @@ class Guild extends Component {
             guildName: '',
             userIsGuildAdmin: false,
             guildMembers: [],
-            guildInviteLink: ''
+            guildInviteLink: '',
+            errorMessage: ''
         }
     }
 
     componentDidMount = async () => {
-        const { data } = await axios.get('/api/guild');
-
-        if(data.error) {
+        let data;
+        try {
+            const res = await axios.get('/api/guild');
+            data = res.data;
+        } catch (err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
             this.props.history.push('/NoGuild');
             return;
         }
@@ -75,9 +80,17 @@ class Guild extends Component {
 
     onRefreshInviteLink = async () => {
         // TODO: API call to refresh guild invite link
-        const res = await axios.post('/api/guild/invite');
+        let data;
+        try {
+            const res = await axios.post('/api/guild/invite');
+            data = res.data;
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
 
-        const newInviteCode = res.data;
+        const newInviteCode = data;
 
         this.setState({guildInviteLink: `${process.env.PUBLIC_URL}/Guild/Join/${newInviteCode}`});
     }
@@ -87,10 +100,16 @@ class Guild extends Component {
         const [...guildMembersCopy] = guildMembers;
         const { userId, isAdmin, username} = guildMembers[idx];
 
-        await axios.post(`/api/guild/user/${userId}`, {
-            newIsAdmin: !isAdmin,
-            guildId
-        });
+        try {
+            await axios.post(`/api/guild/user/${userId}`, {
+                newIsAdmin: !isAdmin,
+                guildId
+            });
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
         
         guildMembersCopy[idx] = {
             userId,
@@ -106,9 +125,11 @@ class Guild extends Component {
     onRemoveMember = async (userId) => {
         const listWithoutRemovedMember = this.state.guildMembers.filter(mbr => mbr.userId !== userId);
         
-        const { status } = await axios.delete(`/api/guild/user/${userId}`);
-
-        if (status !== 200) {
+        try {
+            await axios.delete(`/api/guild/user/${userId}`);
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
             return;
         }
 

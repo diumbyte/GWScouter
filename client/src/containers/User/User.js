@@ -13,17 +13,20 @@ class User extends Component {
             username: '',
             guildName: '',
             guildId: 0,
-            isEditingName: false
+            isEditingName: false,
+            errorMessage: ''
         }
         this.state = this.originalState;
     }
 
     componentDidMount = async () => {
-        const {data : {id : user_id, username, guild_name, guild_id}} = await axios.get('/auth/user_profile');
-
-        if(!user_id) {
+        let res;
+        try {   
+            res = await axios.get('/auth/user_profile');
+        } catch(err) {
             return this.props.history.push('/Login');
         }
+        const {data : {id : user_id, username, guild_name, guild_id}} = res;
 
         this.setState({
             userId: user_id, 
@@ -46,10 +49,16 @@ class User extends Component {
         
         // Button is displaying "Save" if isEditing is true
         if (isEditingName) {
-            await axios.post('/auth/user', {
-                guild_id: guildId,
-                username
-            }) 
+            try {
+                await axios.post('/auth/user', {
+                    guild_id: guildId,
+                    username
+                });
+            } catch(err) {
+                const { data, status } = err.response;
+                this.setState({errorMessage: `Error ${status}: ${data}`});
+                return;
+            }
             this.props.history.go(0);
         }
 
@@ -60,15 +69,27 @@ class User extends Component {
     }
 
     onLogout = async () => {
-        await axios.get('/auth/logout');
+        try {
+            await axios.get('/auth/logout');
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
         window.location.href = "/Home";
     }
 
     onLeaveGuild = async () => {
-        await axios.post('/auth/user', {
-            guild_id: null,
-            username: this.state.username
-        });
+        try {
+            await axios.post('/auth/user', {
+                guild_id: null,
+                username: this.state.username
+            });
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
 
         this.setState({
             guildId: 0,

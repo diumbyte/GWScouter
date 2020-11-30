@@ -11,7 +11,8 @@ class UserWithoutGuild extends Component {
         super();
         this.state = {
             openModal: false,
-            guildName: ''
+            guildName: '',
+            errorMessage: ''
         }
     }
 
@@ -24,13 +25,19 @@ class UserWithoutGuild extends Component {
         const { guildName } = this.state;
 
         if(guildName.length === 0) {
-            return; 
+            this.setState({errorMessage: `Error: Input cannot be empty.`}); 
+            return;
         }
-
-        //TODO: API call to create
-        await axios.post('/api/guild/new', {
-            guildName
-        })
+        
+        try {
+            await axios.post('/api/guild/new', {
+                guildName
+            })
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
         
         this.onCloseModal();
         window.location.href = "/Guild";

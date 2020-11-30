@@ -8,21 +8,26 @@ class JoinGuild extends Component {
         super(props);
         this.state = {
             guildName: '',
+            errorMessage: ''
         }
     }
 
     componentDidMount = async () => {
         const { inviteCode } = this.props.match.params;
-        const { data : userData } = await axios.get('/auth/user_profile');
-        const { data: guildData } = await axios.get(`/api/guild/${inviteCode}`);
+        let userRes, guildRes; 
 
-
-        
-        // User not logged in
-        if(!userData || userData.error || !guildData || guildData.error ) {
-            this.props.history.push('/Login');
-            return;
+        try {
+            userRes = await axios.get('/auth/user_profile');
+            guildRes = await axios.get(`/api/guild/${inviteCode}`);
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            console.log(`Error ${status}: ${data}`)
+            return this.props.history.push('/Login');
         }
+
+        const { data : userData } = userRes;
+        const { data: guildData } = guildRes;
 
         const { guildName } = guildData;
 
@@ -40,7 +45,13 @@ class JoinGuild extends Component {
     onJoinGuild = async () => {
         const { inviteCode } = this.props.match.params;
         
-        await axios.post(`/api/guild/join/${inviteCode}`);
+        try {
+            await axios.post(`/api/guild/join/${inviteCode}`);
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
         
         window.location.href = '/Guild';
     }
