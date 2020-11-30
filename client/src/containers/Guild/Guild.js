@@ -33,7 +33,30 @@ class Guild extends Component {
             userId, guildName, invite, usersInGuild, userIsGuildAdmin, guildId
         } = data;
 
-        console.log(usersInGuild);
+        
+        
+        usersInGuild.sort((firstEle, secondEle) => {
+            // Put admins first
+            if (firstEle.isAdmin && !secondEle.isAdmin) {
+                return -1;
+            } else if (!firstEle.isAdmin && secondEle.isAdmin) {
+                return 1;
+            } else { // They're either both admin or both not admin
+                if(firstEle.username > secondEle.username) {
+                    return 1;
+                } else if (firstEle.username < secondEle.username) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+            // Regular members last
+        });
+        
+        // Put self at beginning of list
+        const selfElement = usersInGuild.splice(usersInGuild.findIndex(i => i.userId === userId), 1);
+        usersInGuild.unshift(selfElement[0]);
+        
         this.setState({
             userId,
             guildId, 
