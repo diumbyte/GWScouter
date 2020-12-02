@@ -19,6 +19,8 @@ app.use(passport.session());
 
 
 require('./routes/authRoutes')(app);
+require('./routes/battleRoutes')(app);
+require('./routes/resourceRoutes')(app);
 require('./routes/guildRoutes')(app);
 
 

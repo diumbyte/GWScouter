@@ -41,7 +41,10 @@ class AutosuggestInput extends Component {
             : results
     }
 
-    getSuggestionValue = suggestion => suggestion.name;
+    getSuggestionValue = suggestion => {
+        const {suggestionValue} = this.props;
+        return suggestionValue ? suggestionValue : suggestion.name;
+    }
 
     renderSuggestion = suggestion => (
         <div>

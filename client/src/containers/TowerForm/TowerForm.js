@@ -7,16 +7,16 @@ import PreviousButton from '../../assets/arrow-left-circle.svg';
 import TextInput from '../../components/TextInput/TextInput';
 import RadioInput from '../../components/RadioInput/RadioInput';
 import AutosuggestInput from '../AutosuggestInput/AutosuggestInput';
-import ArtifactData from '../../assets/SampleData/ArtifactData';
-import HeroData from '../../assets/SampleData/HeroData';
 import SpeedCalculator from '../SpeedCalculator/SpeedCalculator';
 import CalculatorIcon from '../../assets/calculator.svg'
 import './TowerForm.css'
 import './Collapsible.css'
+import axios from 'axios';
 class TowerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            errorMessage: '',
             username: '',
             zone: '',
             unitA: {
@@ -86,12 +86,25 @@ class TowerForm extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
         // TODO: Do API GET request for full hero+artifact lists here
+        let resHeroes, resArtifacts;
+        try {
+            resHeroes = await axios.get('/api/hero');
+            resArtifacts = await axios.get('/api/artifact');
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
+
+        const { data : heroData} = resHeroes;
+        const { data : artifactData} = resArtifacts;
+        
         this.setState(prevState => ({
             ...prevState,
-            heroList: HeroData,
-            artifactList: ArtifactData
+            heroList: heroData,
+            artifactList: artifactData
             }));
     }
 
@@ -135,6 +148,7 @@ class TowerForm extends Component {
                         id={`${unit}-name`}
                         title="Name"
                         name="name"
+                        suggestionValue="id"
                         value={this.state[unit].name}
                         className="input-full"
                         onChange={this.onInputChange(unit)}
@@ -171,6 +185,7 @@ class TowerForm extends Component {
                         onChange={this.onInputChange(unit)}
                         searchKeys={["name", "alias"]}
                         optionsList={this.state.artifactList}
+                        suggestionValue="id"
                     />
                     <RadioInput 
                         title="Gear Sets"
