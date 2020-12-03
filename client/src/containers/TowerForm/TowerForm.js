@@ -155,8 +155,8 @@ class TowerForm extends Component {
         }
 
         // TODO: Uncomment below when finished.
-        const { goBack } = this.props.history;
-        goBack();
+        // const { goBack } = this.props.history;
+        // goBack();
     }
 
         // units = ["unitA", "unitB", "unitC"]
@@ -255,7 +255,11 @@ class TowerForm extends Component {
                 <img src={PreviousButton} alt="Previous button" className="svg-icon" onClick={goBack}/>
                 <h2>Add New Tower</h2>
             </div>
-            <form className="tower-form-container" autoComplete="off" onSubmit={this.handleFormSubmit}>
+            <form 
+                className="tower-form-container" 
+                autoComplete="off" 
+                onSubmit={this.handleFormSubmit}
+            >
                 <div className="tower-info">
                     <TextInput 
                         title="Username"

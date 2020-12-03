@@ -23,10 +23,19 @@ module.exports = (app) => {
             isStronghold
         } = req.body;
 
+        const currentBattleId = await db('battles')
+                                .pluck('id')
+                                .where({
+                                    guild_id: req.user.guild_id,
+                                    current_battle: true
+                                });
+        
+                                
         // Create Tower
         const newTowerId = await db('towers')
                     .returning('id')
                     .insert({
+                        battle_id: currentBattleId[0],
                         enemy_username: username,
                         is_stronghold: isStronghold,
                         zone
