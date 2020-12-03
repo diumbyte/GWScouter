@@ -145,8 +145,7 @@ class TowerForm extends Component {
             activeUnit,
             ...data
         } = this.state;
-        // TODO: API PUT code and stuff
-        console.log(data);
+
         try {
             await axios.post('/api/battle/tower', data);
         } catch(err) {
@@ -156,8 +155,8 @@ class TowerForm extends Component {
         }
 
         // TODO: Uncomment below when finished.
-        // const { goBack } = this.props.history;
-        // goBack();
+        const { goBack } = this.props.history;
+        goBack();
     }
 
         // units = ["unitA", "unitB", "unitC"]
