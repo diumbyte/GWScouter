@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import axios from 'axios';
 import './JoinGuild.css';
-import TextInput from '../../components/TextInput/TextInput';
 
 class JoinGuild extends Component {
     constructor(props) {
@@ -65,7 +64,7 @@ class JoinGuild extends Component {
                 </div>
                 <div className="row">
                     <div className="submit-button" onClick={this.onJoinGuild}>
-                        <button>Join</button>
+                        Join
                     </div>
                 </div>
             </div>

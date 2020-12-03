@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
 import ArtifactData from '../../assets/SampleData/ArtifactData';
+import HeroData from '../../assets/SampleData/HeroData';
 import PreviousButton from '../../assets/arrow-left-circle.svg';
 import TextInput from '../../components/TextInput/TextInput';
 import RadioInput from '../../components/RadioInput/RadioInput';
@@ -23,11 +24,13 @@ class UnitForm extends Component {
                 name: '',
                 speed: 0,
                 health: 0,
+                artifactId: 0,
                 artifact: '',
                 hasImmunity: false,
                 hasCounter: false
             },
             artifactList: [],
+            heroList: [],
             openModal: false
         }
     }
@@ -37,12 +40,13 @@ class UnitForm extends Component {
         this.setState({
             username: 'userOne',
             artifactList: ArtifactData,
+            heroList: HeroData,
             unitData: {
-                unitId: 0,
                 unitCode: 'c2007',
                 team: 'teamOne',
                 name: 'Arbiter Vildred',
                 speed: 215,
+                artifactId: 12,
                 artifact: 'Moonlight Dreamblade',
                 health: 11000,
                 hasImmunity: true,
@@ -65,7 +69,7 @@ class UnitForm extends Component {
     }
 
     handleFormSubmit = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         console.log(this.state);
         // TODO: API PUT code and stuff
         // TODO: Uncomment below when finished.
@@ -90,14 +94,19 @@ class UnitForm extends Component {
                     <p>Tower: {username}</p>
                 </div>
 
-                <form className="form-container">
+                <form className="form-container" onSubmit={this.handleFormSubmit} autoComplete="off">
                     <div className="input-half inputs-container">
-                        <TextInput 
+                        <AutosuggestInput 
                             title="Name"
                             name="name"
+                            onSuggestionSelected={(e, { suggestion }) => {
+                                this.onInputChange({ target: { value: suggestion.id, name: 'unitCode'}})
+                            }}
                             value={unitData.name}
                             className="input-full"
-                            onChange={this.onInputChange}  
+                            onChange={this.onInputChange}
+                            optionsList={HeroData}
+                            searchKeys={["name", "alias"]}
                         />
                         <TextInput 
                             title="Speed"
@@ -117,6 +126,9 @@ class UnitForm extends Component {
                         <AutosuggestInput 
                             title="Artifact"
                             name="artifact"
+                            onSuggestionSelected={(e, { suggestion }) => {
+                                this.onInputChange({ target: { value: suggestion.id, name: 'artifactId'}})
+                            }}
                             value={unitData.artifact}
                             className="input-full"
                             onChange={this.onInputChange}
@@ -151,8 +163,8 @@ class UnitForm extends Component {
                                 alt=""
                             />
                     </div>
-                    <div className="submit-button" onClick={this.handleFormSubmit}>
-                        <button type="submit">Save</button>
+                    <div className="row">
+                        <input className="submit-button" type="submit" value="Save"></input>
                     </div>
                 </form>
                 <Modal open={openModal} onClose={this.onCloseModal} classNames={{modal: 'customModal'}}>

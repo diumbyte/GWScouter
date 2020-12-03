@@ -65,7 +65,7 @@ class UserWithoutGuild extends Component {
                             onChange={this.onInputChange}  
                         />
                         <div className="submit-button" onClick={this.handleFormSubmit}>
-                            <button type="submit">Save</button>
+                            Save
                         </div>
                     </form>
                 </Modal>

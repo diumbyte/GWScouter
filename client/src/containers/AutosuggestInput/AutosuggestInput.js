@@ -11,20 +11,22 @@ class AutosuggestInput extends Component {
         }
     }
 
+
     //********** Autocomplete boilerplate **********/
     onAutocompleteChange = (event, { newValue, method }) => {
         const { onChange } = this.props;
 
-        const pseduoEvent = {
+        const pseudoEvent = {
             target: {
                 value: newValue, 
                 name: this.props.name
             }
         }
-        onChange(pseduoEvent);
+        onChange(pseudoEvent);
     }
 
     getSuggestions = (value) => {
+        // console.log(value);
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
         const { optionsList } = this.props;
@@ -42,8 +44,7 @@ class AutosuggestInput extends Component {
     }
 
     getSuggestionValue = suggestion => {
-        const {suggestionValue} = this.props;
-        return suggestionValue ? suggestionValue : suggestion.name;
+        return suggestion.name;
     }
 
     renderSuggestion = suggestion => (
@@ -89,6 +90,7 @@ class AutosuggestInput extends Component {
             className,
             placeholder,
             id,
+            // onChange,
             onSuggestionSelected,
             required
         } = this.props;

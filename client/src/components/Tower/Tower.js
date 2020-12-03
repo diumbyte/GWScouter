@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Unit from '../Unit/Unit';
 import HistoryIcon from '../../assets/history.svg';
 import { Modal } from 'react-responsive-modal';

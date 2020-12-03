@@ -45,7 +45,7 @@ class User extends Component {
     }
 
     onEditName = async () => {
-        const { isEditingName, username, user_id, guildId } = this.state;
+        const { isEditingName, username, guildId } = this.state;
         
         // Button is displaying "Save" if isEditing is true
         if (isEditingName) {
@@ -99,7 +99,7 @@ class User extends Component {
     }
 
     render() {
-        const { guildName, guildId, username, userId, isEditingName} = this.state;
+        const { guildName, guildId, username, isEditingName} = this.state;
         
         return (
             <div className="profile-container">
@@ -117,9 +117,13 @@ class User extends Component {
                     />
                     {   guildId
                         ?   <div className="input-half">
-                                <div className="submit-button guild-button" onClick={this.onLeaveGuild}>
-                                    <button>Leave Guild?</button>
-                                </div>
+                                <input 
+                                    type="submit"
+                                    className="submit-button guild-button" 
+                                    onClick={this.onLeaveGuild}
+                                    value="Leave Guild"
+                                >
+                                </input>
                             </div>
                         : <div className="input-half"></div>
                     }
@@ -136,14 +140,17 @@ class User extends Component {
                         disabled={!isEditingName}
                     />
                     <div className="input-half">
-                        <div className="submit-button edit-button"  onClick={this.onEditName}>
-                            <button>{isEditingName ? "Save Changes" : "Edit Name"}</button>
-                        </div>
+                        <input 
+                            className="submit-button edit-button" 
+                            type="submit" 
+                            onClick={this.onEditName}
+                            value={isEditingName ? "Save Changes" : "Edit Name"}
+                        />
                     </div>
                 </div>
                 <div className="row">
                     <div href="/Home" className="submit-button logout-button" onClick={this.onLogout}>
-                        <button>Logout</button>
+                        Logout
                     </div>
                 </div>
             </div>

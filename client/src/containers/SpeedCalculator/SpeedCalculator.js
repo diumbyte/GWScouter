@@ -121,17 +121,17 @@ class SpeedCalculator extends Component {
                     style={{backgroundColor: "#195e83"}}
                     onClick={this.onCalculateClick}
                 >
-                    <button type="submit">
+                    
                         Calculate
-                    </button>
+                   
                 </div>
                 <div 
                     className="submit-button"
                     onClick={this.onSubmitClick}
                 >
-                    <button type="submit">
+                    
                         Save
-                    </button>
+                  
                 </div>
             </div>
         );

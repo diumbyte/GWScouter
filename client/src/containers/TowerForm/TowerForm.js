@@ -26,6 +26,7 @@ class TowerForm extends Component {
                 speed: 0,
                 health: 0,
                 artifact: '',
+                artifactId: 0,
                 hasImmunity: false,
                 hasCounter: false
             },
@@ -36,6 +37,7 @@ class TowerForm extends Component {
                 speed: 0,
                 health: 0,
                 artifact: '',
+                artifactId: 0,
                 hasImmunity: false,
                 hasCounter: false
             },
@@ -46,6 +48,7 @@ class TowerForm extends Component {
                 speed: 0,
                 health: 0,
                 artifact: '',
+                artifactId: 0,
                 hasImmunity: false,
                 hasCounter: false
             },
@@ -56,6 +59,7 @@ class TowerForm extends Component {
                 speed: 0,
                 health: 0,
                 artifact: '',
+                artifactId: 0,
                 hasImmunity: false,
                 hasCounter: false
             },
@@ -66,6 +70,7 @@ class TowerForm extends Component {
                 speed: 0,
                 health: 0,
                 artifact: '',
+                artifactId: 0,
                 hasImmunity: false,
                 hasCounter: false
             },
@@ -76,6 +81,7 @@ class TowerForm extends Component {
                 speed: 0,
                 health: 0,
                 artifact: '',
+                artifactId: 0,
                 hasImmunity: false,
                 hasCounter: false
             },
@@ -87,7 +93,6 @@ class TowerForm extends Component {
     }
 
     componentDidMount = async () => {
-        // TODO: Do API GET request for full hero+artifact lists here
         let resHeroes, resArtifacts;
         try {
             resHeroes = await axios.get('/api/hero');
@@ -129,10 +134,26 @@ class TowerForm extends Component {
 
     }
 
-    handleFormSubmit = (e) => {
+    handleFormSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
+        const {
+            errorMessage,
+            heroList,
+            artifactList,
+            openModal,
+            activeUnit,
+            ...data
+        } = this.state;
         // TODO: API PUT code and stuff
+        console.log(data);
+        try {
+            await axios.post('/api/battle/tower', data);
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
+
         // TODO: Uncomment below when finished.
         // const { goBack } = this.props.history;
         // goBack();
@@ -153,6 +174,9 @@ class TowerForm extends Component {
                         className="input-full"
                         onChange={this.onInputChange(unit)}
                         optionsList={this.state.heroList}
+                        onSuggestionSelected={(e, { suggestion }) => {
+                            this.onInputChange(unit)({ target: { value: suggestion.id, name: 'unitId'}})
+                        }}
                         searchKeys={["name", "alias"]}
                         required
                     />
@@ -185,7 +209,9 @@ class TowerForm extends Component {
                         onChange={this.onInputChange(unit)}
                         searchKeys={["name", "alias"]}
                         optionsList={this.state.artifactList}
-                        suggestionValue="id"
+                        onSuggestionSelected={(e, { suggestion }) => {
+                            this.onInputChange(unit)({ target: { value: suggestion.id, name: 'artifactId'}})
+                        }}
                     />
                     <RadioInput 
                         title="Gear Sets"
@@ -229,7 +255,7 @@ class TowerForm extends Component {
                 <img src={PreviousButton} alt="Previous button" className="svg-icon" onClick={goBack}/>
                 <h2>Add New Tower</h2>
             </div>
-            <form className="tower-form-container" onSubmit={this.handleFormSubmit}>
+            <form className="tower-form-container" autoComplete="off" onSubmit={this.handleFormSubmit}>
                 <div className="tower-info">
                     <TextInput 
                         title="Username"
@@ -237,12 +263,14 @@ class TowerForm extends Component {
                         value={username}
                         className=""
                         onChange={this.onInputChange()}  
+                        required
                     />
                     <RadioInput 
                         title="Zone"
                         type="radio"
                         className=""
                         name="zone"
+                        required
                         onChange={this.onInputChange()}
                         checkedState={zone}
                         values={[
@@ -269,8 +297,8 @@ class TowerForm extends Component {
                         closeModal={this.onCloseModal}
                     />
                 </Modal>
-                <div className="submit-button">
-                    <button type="submit" id="submit">Save</button>
+                <div className="row">
+                    <input className="submit-button" type="submit" id="submit" value="Save"></input>
                 </div>
                 {/* <input type="button" id="submit" value="Save" onClick={this.handleFormSubmit} /> */}
             </form>

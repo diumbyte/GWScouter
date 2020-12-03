@@ -8,6 +8,19 @@ module.exports = (app) => {
     });
 
     app.post('/api/battle/tower', requireGuild, async (req, res) => {
-        
+        const { 
+            username,
+            zone,
+            unitA,
+            unitB,
+            unitC,
+            unitD,
+            unitE,
+            unitF,
+        } = req.body;
+
+        console.log(username, zone, unitE);
+
+        res.json("Yay");
     });
 }
