@@ -19,6 +19,7 @@ class TowerForm extends Component {
             errorMessage: '',
             username: '',
             zone: '',
+            isStronghold: false,
             unitA: {
                 unitId: 0,
                 team: 'teamOne',
@@ -120,7 +121,7 @@ class TowerForm extends Component {
         if(unit === undefined) {
             this.setState(prevState => ({
                 ...prevState,
-                [name]: value
+                [name]: (name === "isStronghold") ? !prevState[name] : value
             }));
         } else {
             this.setState(prevState => ({
@@ -264,6 +265,20 @@ class TowerForm extends Component {
                         className=""
                         onChange={this.onInputChange()}  
                         required
+                    />
+                    <RadioInput 
+                        title="Stronghold"
+                        type="checkbox"
+                        className="stronghold-input"
+                        onChange={this.onInputChange()}
+                        values={[
+                            {
+                                value: "isStronghold", 
+                                name: "isStronghold", 
+                                label: "Is Stronghold?",
+                                checked: this.state.isStronghold
+                            }
+                        ]}
                     />
                     <RadioInput 
                         title="Zone"

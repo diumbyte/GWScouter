@@ -63,7 +63,11 @@
 }
 
 .tower-info > * {
-    flex-basis: 45%;
+    flex-basis: 35%;
+}
+
+.tower-info .stronghold-input {
+    flex-basis: 20%;
 }
 
 @media (max-width:768px) {
