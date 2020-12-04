@@ -49,11 +49,11 @@ const Unit = (props) => {
                     </div>
                     <div className="team-unit-speed">
                         <img src={SpeedIcon} className="set-icon" alt="Speed icon"/>
-                        <p>{speed}</p>
+                        <p>{speed === 0 ? '?' : speed}</p>
                     </div>
                     <div className="team-unit-health">
                         <img src={HealthIcon} className="set-icon" alt="Health icon"/>
-                        <p>{health}</p>
+                        <p>{health === 0 ? '?' : health}</p>
                     </div>
                     <div className="team-unit-sets">
                             <img 
