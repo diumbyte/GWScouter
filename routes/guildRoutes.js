@@ -175,7 +175,7 @@ router.post('/api/guild/join/:inviteCode', requireLogin, async (req, res) => {
                         .first();
 
     if(!guildRes) {
-        return res.status(409).send("No guild found");
+        return res.status(409).json({ errors: [{msg: "No guild found."}]});
     }
 
     const { id : guildId } = guildRes;

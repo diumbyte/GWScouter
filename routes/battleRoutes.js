@@ -2,6 +2,7 @@ const router = require('express').Router();
 const requireGuild = require('../middlewares/requireGuild');
 const requireLogin = require('../middlewares/requireLogin');
 const { updatedUnitProperties } = require('../helpers/battleHelpers');
+const towerValidation = require('./validation/towerValidation');
 
 const db = require('../db');
 
@@ -68,9 +69,15 @@ router.get('/api/battle', requireLogin, requireGuild, async (req, res) => {
     res.status(200).json(towersWithUnits);
 });
 
-router.post('/api/battle/tower', requireLogin, requireGuild, async (req, res) => {
+router.post(
+    '/api/battle/tower', 
+    requireLogin, 
+    requireGuild, 
+    towerValidation,
+    async (req, res) => {
     const { 
         username,
+        isStronghold,
         zone,
         unitA,
         unitB,
@@ -78,7 +85,6 @@ router.post('/api/battle/tower', requireLogin, requireGuild, async (req, res) =>
         unitD,
         unitE,
         unitF,
-        isStronghold
     } = req.body;
 
     const currentBattleId = await db('battles')

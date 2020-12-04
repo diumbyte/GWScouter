@@ -38,7 +38,7 @@ class Guild extends Component {
             userId, guildName, invite, usersInGuild, userIsGuildAdmin, guildId
         } = data;
 
-        
+        console.log(data);
         
         usersInGuild.sort((firstEle, secondEle) => {
             // Put admins first
