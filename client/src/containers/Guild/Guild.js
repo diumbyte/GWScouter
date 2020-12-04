@@ -7,6 +7,7 @@ import CopyIcon from '../../assets/content-copy.svg';
 import RefreshIcon from '../../assets/refresh.svg';
 import RemoveIcon from '../../assets/minus-circle.svg';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 class Guild extends Component {
     constructor(props) {
@@ -18,7 +19,6 @@ class Guild extends Component {
             userIsGuildAdmin: false,
             guildMembers: [],
             guildInviteLink: '',
-            errorMessage: ''
         }
     }
 
@@ -28,10 +28,10 @@ class Guild extends Component {
             const res = await axios.get('/api/guild');
             data = res.data;
         } catch (err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            this.props.history.push('/NoGuild');
-            return;
+            const { data } = err.response;
+
+            data.errors.forEach(err => toast.error(`${err.msg}`))
+            return this.props.history.push('/NoGuild');
         }
 
         const {
@@ -85,9 +85,9 @@ class Guild extends Component {
             const res = await axios.post('/api/guild/invite');
             data = res.data;
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         const newInviteCode = data;
@@ -106,9 +106,9 @@ class Guild extends Component {
                 guildId
             });
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         
         guildMembersCopy[idx] = {
@@ -128,9 +128,9 @@ class Guild extends Component {
         try {
             await axios.delete(`/api/guild/user/${userId}`);
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         this.setState({

@@ -10,11 +10,14 @@ import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import './App.css';
 import User from '../User/User';
 import JoinGuild from '../JoinGuild/JoinGuild';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  
+  toast.configure();
   return (
     <>
+      <ToastContainer />
       <Header />
       <Main>
           <Switch>

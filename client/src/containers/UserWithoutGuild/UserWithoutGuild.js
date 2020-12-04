@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Modal } from 'react-responsive-modal';
+import { toast } from 'react-toastify';
 import 'react-responsive-modal/styles.css';
 import TextInput from '../../components/TextInput/TextInput'
 import AddIcon from '../../assets/plus-circle.svg';
@@ -11,8 +12,7 @@ class UserWithoutGuild extends Component {
         super();
         this.state = {
             openModal: false,
-            guildName: '',
-            errorMessage: ''
+            guildName: ''
         }
     }
 
@@ -23,20 +23,15 @@ class UserWithoutGuild extends Component {
     handleFormSubmit = async (e) => {
         e.preventDefault();
         const { guildName } = this.state;
-
-        if(guildName.length === 0) {
-            this.setState({errorMessage: `Error: Input cannot be empty.`}); 
-            return;
-        }
         
         try {
             await axios.post('/api/guild/new', {
                 guildName
             })
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         
         this.onCloseModal();

@@ -12,6 +12,8 @@ import AddIcon from '../../assets/plus-circle.svg';
 import './Battle.css';
 import 'react-router-modal/css/react-router-modal.css';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 class Battle extends Component  {
     constructor(props) {
@@ -20,7 +22,6 @@ class Battle extends Component  {
         this.state = {
             searchField: '',
             towersList: [],
-            errorMessage: ''
         }
     }
 
@@ -29,9 +30,9 @@ class Battle extends Component  {
         try {
             res = await axios.get('/api/battle');
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         
         this.setState({

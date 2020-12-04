@@ -10,6 +10,8 @@ import SpeedCalculator from '../SpeedCalculator/SpeedCalculator';
 import CalculatorIcon from '../../assets/calculator.svg'
 import './UnitForm.css'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 // TODO: Possibly add unit character image to the background of the title? Similar to inspo
 class UnitForm extends Component {
@@ -31,7 +33,6 @@ class UnitForm extends Component {
             artifactList: [],
             heroList: [],
             openModal: false,
-            errorMessage: ''
         }
     }
 
@@ -45,9 +46,9 @@ class UnitForm extends Component {
             resHeroes = await axios.get('/api/hero');
             resArtifacts = await axios.get('/api/artifact');
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         const { data } = res;
@@ -93,9 +94,9 @@ class UnitForm extends Component {
         try {
             await axios.post(`/api/battle/unit/${unitId}`, unitData);
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         // TODO: Uncomment below when finished.
         const { goBack } = this.props.history;

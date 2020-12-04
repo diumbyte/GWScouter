@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import TextInput from '../../components/TextInput/TextInput';
+import { toast } from 'react-toastify';
 import './User.css';
 
 class User extends Component {
@@ -14,7 +15,6 @@ class User extends Component {
             guildName: '',
             guildId: 0,
             isEditingName: false,
-            errorMessage: ''
         }
         this.state = this.originalState;
     }
@@ -55,9 +55,9 @@ class User extends Component {
                     username
                 });
             } catch(err) {
-                const { data, status } = err.response;
-                this.setState({errorMessage: `Error ${status}: ${data}`});
-                return;
+                const { data } = err.response;
+
+                return data.errors.forEach(err => toast.error(`${err.msg}`))
             }
             this.props.history.go(0);
         }
@@ -72,9 +72,9 @@ class User extends Component {
         try {
             await axios.get('/auth/logout');
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         window.location.href = "/Home";
     }
@@ -86,9 +86,9 @@ class User extends Component {
                 username: this.state.username
             });
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         this.setState({

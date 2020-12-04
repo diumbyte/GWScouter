@@ -3,6 +3,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import './TowerHistory.css'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { zonedTimeToUtc, format } from 'date-fns-tz';
 
 //TODO: Need to figure out how to deal with Time/Date stuff
@@ -10,7 +11,6 @@ class TowerHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorMessage: '',
             historyList: []
         }
     }
@@ -22,9 +22,9 @@ class TowerHistory extends Component {
         try {
             res = await axios.get(`/api/tower/history/${towerId}`);
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         const updatedList = res.data.map(entry => {

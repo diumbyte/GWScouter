@@ -12,11 +12,12 @@ import CalculatorIcon from '../../assets/calculator.svg'
 import './TowerForm.css'
 import './Collapsible.css'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+
 class TowerForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            errorMessage: '',
             username: '',
             zone: '',
             isStronghold: false,
@@ -99,9 +100,9 @@ class TowerForm extends Component {
             resHeroes = await axios.get('/api/hero');
             resArtifacts = await axios.get('/api/artifact');
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         const { data : heroData} = resHeroes;
@@ -138,7 +139,6 @@ class TowerForm extends Component {
     handleFormSubmit = async (e) => {
         e.preventDefault();
         const {
-            errorMessage,
             heroList,
             artifactList,
             openModal,
@@ -149,9 +149,9 @@ class TowerForm extends Component {
         try {
             await axios.post('/api/battle/tower', data);
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 
         // TODO: Uncomment below when finished.

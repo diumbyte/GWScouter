@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import './JoinGuild.css';
 
@@ -7,7 +8,6 @@ class JoinGuild extends Component {
         super(props);
         this.state = {
             guildName: '',
-            errorMessage: ''
         }
     }
 
@@ -19,9 +19,9 @@ class JoinGuild extends Component {
             userRes = await axios.get('/auth/user_profile');
             guildRes = await axios.get(`/api/guild/${inviteCode}`);
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            console.log(`Error ${status}: ${data}`)
+            const { data } = err.response;
+
+            data.errors.forEach(err => toast.error(`${err.msg}`))
             return this.props.history.push('/Login');
         }
 
@@ -47,9 +47,9 @@ class JoinGuild extends Component {
         try {
             await axios.post(`/api/guild/join/${inviteCode}`);
         } catch(err) {
-            const { data, status } = err.response;
-            this.setState({errorMessage: `Error ${status}: ${data}`});
-            return;
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         
         window.location.href = '/Guild';
