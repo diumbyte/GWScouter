@@ -3,6 +3,7 @@ const requireGuild = require('../middlewares/requireGuild');
 const requireLogin = require('../middlewares/requireLogin');
 const { updatedUnitProperties } = require('../helpers/battleHelpers');
 const towerValidation = require('./validation/towerValidation');
+const enemyUnitValidation = require('./validation/enemyUnitValidation');
 
 const db = require('../db');
 
@@ -160,13 +161,18 @@ router.get('/api/battle/unit/:unitId', async (req, res) => {
     res.json(enemyUnit);
 });
 
-router.post('/api/battle/unit/:unitId', requireLogin, requireGuild, async (req, res) => {
+router.post(
+    '/api/battle/unit/:unitId', 
+    requireLogin, 
+    requireGuild, 
+    enemyUnitValidation,
+    async (req, res) => {
     const { unitId } = req.params;
     const {
         heroId,
+        artifactId,
         speed,
         health,
-        artifactId,
         hasImmunity,
         hasCounter
     } = req.body;
