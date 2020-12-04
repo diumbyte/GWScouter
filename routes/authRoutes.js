@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const passport = require('passport');
-const requireLogin = require('../middlewares/requireLogin');
 const db = require('../db');
+const requireLogin = require('../middlewares/requireLogin');
+const userValidation = require('./validation/userValidation');
 
 router.get('/auth/discord', passport.authenticate('discord'));
 
@@ -38,7 +39,7 @@ router.get('/auth/user_profile', requireLogin, async (req, res) => {
     res.json(userToReturn);
 });
 
-router.post('/auth/user', requireLogin, async (req, res) => {
+router.post('/auth/user', requireLogin, userValidation, async (req, res) => {
     const updatedUser = await db('users')
                     .returning('*')
                     .where({id: req.user.id})

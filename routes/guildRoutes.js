@@ -3,6 +3,7 @@ const generateNewInviteCode = require('../helpers/guildHelpers')
 const requireLogin = require('../middlewares/requireLogin');
 const requireGuild = require('../middlewares/requireGuild');
 const requireGuildAdmin = require('../middlewares/requireGuildAdmin');
+const adminValidation = require('./validation/adminEditMemberValidation');
 
 const db = require('../db');
 
@@ -83,25 +84,29 @@ router.delete('/api/guild/user/:userId', requireLogin, requireGuildAdmin, async 
 })
 
 // Edit User isAdmin property of guild
-router.post('/api/guild/user/:userId', requireLogin, requireGuildAdmin, async (req, res) => {
-    const { userId } = req.params;
-    const { newIsAdmin, guildId } = req.body;
+router.post('/api/guild/user/:userId', 
+            requireLogin, 
+            requireGuildAdmin, 
+            adminValidation,
+    async (req, res) => {
+        const { userId } = req.params;
+        const { newIsAdmin, guildId } = req.body;
 
-    console.log(guildId);
+        console.log(guildId);
 
-    if(guildId !== req.user.guild_id) {
-        return res.status(400).json("You are not authorized");
-    }
+        if(guildId !== req.user.guild_id) {
+            return res.status(400).json({errors: [{msg: "You are not authorized."}]});
+        }
 
-    await db('user_guild_roles')
-            .where({
-                user_id: userId
-            })
-            .update({
-                is_admin: newIsAdmin
-            });
+        await db('user_guild_roles')
+                .where({
+                    user_id: userId
+                })
+                .update({
+                    is_admin: newIsAdmin
+                });
 
-    res.status(200).json("Success");
+        res.status(200).json("Success");
 })
 
 router.post('/api/guild/invite', requireLogin, requireGuildAdmin, async (req, res) => {
