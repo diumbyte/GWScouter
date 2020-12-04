@@ -9,8 +9,6 @@ import HealthIcon from '../../assets/unit-icons/Health.webp';
 import CounterIcon from '../../assets/unit-icons/Counter.webp';
 import EditIcon from '../../assets/clipboard-edit.svg';
 
-// TODO: Don't forget to extract unit image and artifact image to a variable as well.
-// TODO: Use CSS class darken-image to indicate that a set is NOT active.
 const Unit = (props) => {
         const {
             id,

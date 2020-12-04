@@ -65,8 +65,6 @@ router.get('/api/battle', requireLogin, requireGuild, async (req, res) => {
         };
     }));
     
-    // console.log(towersWithUnits[0]);
-    
     res.status(200).json(towersWithUnits);
 });
 
@@ -216,8 +214,6 @@ router.post(
 
     const differences = updatedUnitProperties(origEnemyUnit, updatedEnemyUnit, req.user.id);
 
-    console.log(differences);
-    
     await db('tower_history')
             .insert(differences);
     

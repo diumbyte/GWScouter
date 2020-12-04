@@ -32,10 +32,8 @@ passport.use(new DiscordStrategy({
                 username,
                 discord_id
             });
-            console.log("New user", newUser);
             done(null, newUser[0]);
         } else {
-            console.log("Existing user", user);
             done(null, user[0]);
         }
     })

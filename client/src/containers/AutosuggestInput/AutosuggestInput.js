@@ -26,7 +26,6 @@ class AutosuggestInput extends Component {
     }
 
     getSuggestions = (value) => {
-        // console.log(value);
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
         const { optionsList } = this.props;

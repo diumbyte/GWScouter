@@ -38,7 +38,6 @@ class Guild extends Component {
             userId, guildName, invite, usersInGuild, userIsGuildAdmin, guildId
         } = data;
 
-        console.log(data);
         
         usersInGuild.sort((firstEle, secondEle) => {
             // Put admins first
@@ -79,7 +78,6 @@ class Guild extends Component {
     }
 
     onRefreshInviteLink = async () => {
-        // TODO: API call to refresh guild invite link
         let data;
         try {
             const res = await axios.post('/api/guild/invite');

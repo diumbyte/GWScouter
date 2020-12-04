@@ -93,8 +93,6 @@ router.post('/api/guild/user/:userId',
         const { userId } = req.params;
         const { newIsAdmin, guildId } = req.body;
 
-        console.log(guildId);
-
         if(guildId !== req.user.guild_id) {
             return res.status(400).json({errors: [{msg: "You are not authorized."}]});
         }

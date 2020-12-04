@@ -38,7 +38,6 @@ class Battle extends Component  {
         this.setState({
             towersList: res.data
         });
-        console.log("Battle componentDidMount call");
     }
 
     filteredTowersList = (zone) => {

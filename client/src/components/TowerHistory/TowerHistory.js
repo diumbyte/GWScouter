@@ -6,7 +6,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { zonedTimeToUtc, format } from 'date-fns-tz';
 
-//TODO: Need to figure out how to deal with Time/Date stuff
 class TowerHistory extends Component {
     constructor(props) {
         super(props);

@@ -13,7 +13,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 
-// TODO: Possibly add unit character image to the background of the title? Similar to inspo
 class UnitForm extends Component {
     constructor(props) {
         super(props);
@@ -98,9 +97,9 @@ class UnitForm extends Component {
 
             return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
-        // TODO: Uncomment below when finished.
+
         const { goBack } = this.props.history;
-        // goBack();
+        goBack();
     }
 
     onOpenModal = () => {this.setState({openModal: true})}
