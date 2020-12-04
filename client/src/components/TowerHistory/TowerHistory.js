@@ -2,35 +2,41 @@ import { Component } from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import './TowerHistory.css'
+import axios from 'axios';
+import { zonedTimeToUtc, format } from 'date-fns-tz';
 
 //TODO: Need to figure out how to deal with Time/Date stuff
 class TowerHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            errorMessage: '',
             historyList: []
         }
     }
 
-    componentDidMount() {
-        //TODO: API call for specific towerId
-        const updatedList = [
-            {
-                username: "userOne",
-                time: "12:00",
-                change: "Created tower"
-            },
-            {
-                username: "userTwo",
-                time: "1:30",
-                change: "Edited Arbiter Vildred speed to 222"
-            },
-            {
-                username: "userThree",
-                time: "2:00",
-                change: "Edited Arbiter Vildred artifact to Moonlight Dreamblade"
+    componentDidMount = async () => {
+        const { towerId } = this.props;
+
+        let res;
+        try {
+            res = await axios.get(`/api/tower/history/${towerId}`);
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
+
+        const updatedList = res.data.map(entry => {
+            const utcDate = zonedTimeToUtc(entry.updated_at);
+            const pattern = 'HH:mm zzz';
+            const timeOutput = format(utcDate, pattern);
+            return {
+                username: entry.username,
+                time: timeOutput,
+                change: entry.action
             }
-        ];
+        });
 
         this.setState({historyList: updatedList});
     }
@@ -48,11 +54,9 @@ class TowerHistory extends Component {
     }
 
     render() {
-        const {towerId} = this.props;
-        
         return (
             <div className="tower-history-container">
-                <h2>Tower History WIP - {`${towerId}`}</h2>
+                <h2>Tower History</h2>
                 <Table>
                     <Thead>
                         <Tr>

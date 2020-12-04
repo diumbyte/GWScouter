@@ -24,11 +24,11 @@
 }
 
 .tower-history-container thead tr .timestamp {
-    width: 10%;
+    width: 20%;
 }
 
 .tower-history-container thead tr .change {
-    width: 65%;
+    width: 55%;
 }
 
 .tower-history-container tbody tr {

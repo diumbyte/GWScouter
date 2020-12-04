@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "cookie-session": "^1.4.0",
+    "date-fns-tz": "^1.0.12",
     "express": "^4.17.1",
     "knex": "^0.21.12",
     "passport": "^0.4.1",

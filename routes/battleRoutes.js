@@ -57,6 +57,7 @@ module.exports = (app) => {
             return {
                 username: tower.enemy_username,
                 towerId: tower.id,
+                isStronghold: tower.is_stronghold,
                 ...tower,
                 teamOne,
                 teamTwo
@@ -104,7 +105,7 @@ module.exports = (app) => {
                     .insert({
                         tower_id: newTowerId[0],
                         user_id: req.user.id,
-                        action: `${req.user.username} created entry`
+                        action: `Created tower`
                     })
 
         
@@ -129,5 +130,16 @@ module.exports = (app) => {
                 .insert(enemyUnits);
 
         res.status(200).json("Success");
+    });
+
+    app.get('/api/tower/history/:towerId', requireLogin, requireGuild, async (req, res) => {
+        const { towerId } = req.params;
+
+        const towerHistory = await db('tower_history')
+                                    .select('tower_history.*', 'users.username')
+                                    .leftJoin('users', 'tower_history.user_id', 'users.id')
+                                    .where('tower_history.tower_id', '=', towerId);
+        
+        res.status(200).json(towerHistory);
     });
 }
