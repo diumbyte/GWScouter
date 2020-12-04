@@ -11,6 +11,7 @@ import AutosuggestInput from '../AutosuggestInput/AutosuggestInput';
 import SpeedCalculator from '../SpeedCalculator/SpeedCalculator';
 import CalculatorIcon from '../../assets/calculator.svg'
 import './UnitForm.css'
+import axios from 'axios';
 
 // TODO: Possibly add unit character image to the background of the title? Similar to inspo
 class UnitForm extends Component {
@@ -19,9 +20,9 @@ class UnitForm extends Component {
         this.state = {
             username: '',
             unitData: {
-                unitId: 0,
+                heroId: 0,
+                heroName: '',
                 team: '',
-                name: '',
                 speed: 0,
                 health: 0,
                 artifactId: 0,
@@ -31,26 +32,44 @@ class UnitForm extends Component {
             },
             artifactList: [],
             heroList: [],
-            openModal: false
+            openModal: false,
+            errorMessage: ''
         }
     }
 
-    componentDidMount() {
-        // TODO: Do API GET request for specific unit here
+    componentDidMount = async () => {
+        const {unitId} = this.props.match.params;
+
+        let resHeroes, resArtifacts, res;
+
+        try {
+            res = await axios.get(`/api/battle/unit/${unitId}`);
+            resHeroes = await axios.get('/api/hero');
+            resArtifacts = await axios.get('/api/artifact');
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
+
+        const { data } = res;
+        const { data : heroData} = resHeroes;
+        const { data : artifactData} = resArtifacts;
         this.setState({
-            username: 'userOne',
-            artifactList: ArtifactData,
-            heroList: HeroData,
+            username: data.username,
+            artifactList: artifactData,
+            heroList: heroData,
             unitData: {
-                unitCode: 'c2007',
-                team: 'teamOne',
-                name: 'Arbiter Vildred',
-                speed: 215,
-                artifactId: 12,
-                artifact: 'Moonlight Dreamblade',
-                health: 11000,
-                hasImmunity: true,
-                hasCounter: false
+                heroId: data.unitId,
+                heroName: data.name,
+                heroCode: data.unitCode,
+                team: data.team,
+                speed: data.speed,
+                health: data.health,
+                artifactId: data.artifact_id,
+                artifact: data.artifactName,
+                hasImmunity: data.has_immunity,
+                hasCounter: data.has_counter
             }
         });
     }
@@ -68,10 +87,20 @@ class UnitForm extends Component {
         }));
     }
 
-    handleFormSubmit = (e) => {
+    handleFormSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
-        // TODO: API PUT code and stuff
+
+        // console.log(this.state);
+
+        const { unitData } = this.state;
+        const { unitId } = this.props.match.params;
+        try {
+            await axios.post(`/api/battle/unit/${unitId}`, unitData);
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
         // TODO: Uncomment below when finished.
         // const { goBack } = this.props.history;
         // goBack();
@@ -81,7 +110,7 @@ class UnitForm extends Component {
     onCloseModal = () => {this.setState({openModal: false})}
 
     render() {
-        const {unitData, username, openModal } = this.state;
+        const {unitData, username, openModal, heroList, artifactList } = this.state;
         const { goBack } = this.props.history;
         
         return (
@@ -98,14 +127,15 @@ class UnitForm extends Component {
                     <div className="input-half inputs-container">
                         <AutosuggestInput 
                             title="Name"
-                            name="name"
+                            name="heroName"
                             onSuggestionSelected={(e, { suggestion }) => {
-                                this.onInputChange({ target: { value: suggestion.id, name: 'unitCode'}})
+                                this.onInputChange({ target: { value: suggestion.code, name: 'heroCode'}})
+                                this.onInputChange({ target: { value: suggestion.id, name: 'heroId'}})
                             }}
-                            value={unitData.name}
+                            value={unitData.heroName}
                             className="input-full"
                             onChange={this.onInputChange}
-                            optionsList={HeroData}
+                            optionsList={heroList}
                             searchKeys={["name", "alias"]}
                         />
                         <TextInput 
@@ -132,7 +162,7 @@ class UnitForm extends Component {
                             value={unitData.artifact}
                             className="input-full"
                             onChange={this.onInputChange}
-                            optionsList={ArtifactData}
+                            optionsList={artifactList}
                             searchKeys={["name", "alias"]}
                         />
                         <RadioInput 
@@ -159,7 +189,7 @@ class UnitForm extends Component {
                     </div>
                     <div className="input-half unit-image-preview">
                             <img 
-                                src={`${process.env.PUBLIC_URL}/assets/images/hero/${unitData.unitCode}.png`}
+                                src={`${process.env.PUBLIC_URL}/assets/images/hero/${unitData.heroCode}.png`}
                                 alt=""
                             />
                     </div>

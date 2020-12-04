@@ -132,6 +132,57 @@ module.exports = (app) => {
         res.status(200).json("Success");
     });
 
+    app.get('/api/battle/unit/:unitId', async (req, res) => {
+        const { unitId } = req.params;
+
+        const enemyUnit = await db('enemy_units')
+        .select(
+            'enemy_units.*', 
+            'heroes.id as unitId',
+            'heroes.code as unitCode',
+            'heroes.name as name',
+            'artifacts.id as artifactId',
+            'artifacts.code as artifactCode',
+            'artifacts.name as artifactName',
+            'towers.enemy_username as username'
+            )
+        .leftJoin('heroes', 'enemy_units.unit_id', 'heroes.id')
+        .leftJoin('artifacts', 'enemy_units.artifact_id', 'artifacts.id')
+        .leftJoin('towers', 'enemy_units.tower_id', 'towers.id')
+        .where('enemy_units.id', '=', unitId)
+        .first();
+
+        res.json(enemyUnit);
+    });
+
+    app.post('/api/battle/unit/:unitId', requireLogin, requireGuild, async (req, res) => {
+        const { unitId } = req.params;
+        const {
+            heroId,
+            speed,
+            health,
+            artifactId,
+            hasImmunity,
+            hasCounter
+        } = req.body;
+        console.log(req.body);
+
+        await db('enemy_units')
+                .where({
+                    id: unitId
+                })
+                .update({
+                    unit_id: heroId,
+                    artifact_id: artifactId,
+                    speed,
+                    health,
+                    has_immunity: hasImmunity,
+                    has_counter: hasCounter
+                });
+        
+        res.json("Success");
+    });
+
     app.get('/api/tower/history/:towerId', requireLogin, requireGuild, async (req, res) => {
         const { towerId } = req.params;
 
