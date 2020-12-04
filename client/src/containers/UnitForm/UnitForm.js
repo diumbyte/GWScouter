@@ -2,8 +2,6 @@ import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
-import ArtifactData from '../../assets/SampleData/ArtifactData';
-import HeroData from '../../assets/SampleData/HeroData';
 import PreviousButton from '../../assets/arrow-left-circle.svg';
 import TextInput from '../../components/TextInput/TextInput';
 import RadioInput from '../../components/RadioInput/RadioInput';
@@ -60,9 +58,9 @@ class UnitForm extends Component {
             artifactList: artifactData,
             heroList: heroData,
             unitData: {
-                heroId: data.unitId,
-                heroName: data.name,
-                heroCode: data.unitCode,
+                heroId: data.heroId,
+                heroName: data.heroName,
+                heroCode: data.heroCode,
                 team: data.team,
                 speed: data.speed,
                 health: data.health,
@@ -90,8 +88,6 @@ class UnitForm extends Component {
     handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        // console.log(this.state);
-
         const { unitData } = this.state;
         const { unitId } = this.props.match.params;
         try {
@@ -102,7 +98,7 @@ class UnitForm extends Component {
             return;
         }
         // TODO: Uncomment below when finished.
-        // const { goBack } = this.props.history;
+        const { goBack } = this.props.history;
         // goBack();
     }
 

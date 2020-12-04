@@ -1,7 +1,6 @@
 const requireGuild = require('../middlewares/requireGuild');
 const requireLogin = require('../middlewares/requireLogin');
-const { TeamOne, TeamTwo } = require('../db/models/constants/TeamOptions');
-const { Top, Mid, Bot, Main } = require('../db/models/constants/ZoneOptions');
+const { updatedUnitProperties } = require('../helpers/battleHelpers');
 
 const db = require('../db');
 
@@ -138,9 +137,9 @@ module.exports = (app) => {
         const enemyUnit = await db('enemy_units')
         .select(
             'enemy_units.*', 
-            'heroes.id as unitId',
-            'heroes.code as unitCode',
-            'heroes.name as name',
+            'heroes.id as heroId',
+            'heroes.code as heroCode',
+            'heroes.name as heroName',
             'artifacts.id as artifactId',
             'artifacts.code as artifactCode',
             'artifacts.name as artifactName',
@@ -165,12 +164,21 @@ module.exports = (app) => {
             hasImmunity,
             hasCounter
         } = req.body;
-        console.log(req.body);
 
+        const origEnemyUnit = await db('enemy_units')
+                        .select(
+                            'enemy_units.*', 
+                            'heroes.name as heroName',
+                            'artifacts.name as artifactName',
+                            )
+                        .leftJoin('heroes', 'enemy_units.unit_id', 'heroes.id')
+                        .leftJoin('artifacts', 'enemy_units.artifact_id', 'artifacts.id')
+                        .where('enemy_units.id', '=', unitId)
+                        .first();
+        
+        // There's no way to return data from a joined table knex update so we'll separate the queries
         await db('enemy_units')
-                .where({
-                    id: unitId
-                })
+                .where('enemy_units.id', '=', unitId)
                 .update({
                     unit_id: heroId,
                     artifact_id: artifactId,
@@ -179,6 +187,27 @@ module.exports = (app) => {
                     has_immunity: hasImmunity,
                     has_counter: hasCounter
                 });
+        
+        const updatedEnemyUnit = await db('enemy_units')
+                        .select(
+                            'enemy_units.*', 
+                            'heroes.name as heroName',
+                            'artifacts.name as artifactName',
+                            )
+                        .leftJoin('heroes', 'enemy_units.unit_id', 'heroes.id')
+                        .leftJoin('artifacts', 'enemy_units.artifact_id', 'artifacts.id')
+                        .where('enemy_units.id', '=', unitId)
+                        .first();
+        
+
+        // const updatedEnemyUnit = updatedEnemyUnitRes[0];
+
+        const differences = updatedUnitProperties(origEnemyUnit, updatedEnemyUnit, req.user.id);
+
+        console.log(differences);
+        
+        await db('tower_history')
+                .insert(differences);
         
         res.json("Success");
     });
