@@ -17,11 +17,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-require('./routes/authRoutes')(app);
-require('./routes/battleRoutes')(app);
-require('./routes/resourceRoutes')(app);
-require('./routes/guildRoutes')(app);
+// Router
+app.use('/', require('./routes/authRoutes'));
+app.use('/', require('./routes/battleRoutes'));
+app.use('/', require('./routes/resourceRoutes'));
+app.use('/', require('./routes/guildRoutes'));
 
 
 if (process.env.NODE_ENV === 'production') {
