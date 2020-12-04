@@ -155,8 +155,8 @@ class TowerForm extends Component {
         }
 
         // TODO: Uncomment below when finished.
-        // const { goBack } = this.props.history;
-        // goBack();
+        const { goBack } = this.props.history;
+        goBack();
     }
 
         // units = ["unitA", "unitB", "unitC"]

@@ -6,8 +6,66 @@ const { Top, Mid, Bot, Main } = require('../db/models/constants/ZoneOptions');
 const db = require('../db');
 
 module.exports = (app) => {
-    app.get('/api/battle', requireGuild, async (req, res) => {
-        res.json(req.user)
+    app.get('/api/battle', requireLogin, requireGuild, async (req, res) => {
+        
+        // Get current battle
+        const currentBattleId = await db('battles')
+                            .pluck('id')
+                            .where({
+                                guild_id: req.user.guild_id,
+                                current_battle: true
+                            });
+
+        const towers = await db('towers')
+                            .select('*')
+                            .where({
+                                battle_id: currentBattleId[0]
+                            })
+
+        const towersWithUnits = await Promise.all(towers.map(async tower => {
+            const enemyUnits = await db('enemy_units')
+                                .select(
+                                    'enemy_units.*', 
+                                    'heroes.code as heroCode',
+                                    'heroes.name as heroName',
+                                    'artifacts.code as artifactCode',
+                                    'artifacts.name as artifactName'
+                                    )
+                                .leftJoin('heroes', 'enemy_units.unit_id', 'heroes.id')
+                                .leftJoin('artifacts', 'enemy_units.artifact_id', 'artifacts.id')
+                                .where('enemy_units.tower_id', '=', tower.id);
+
+            const enemyUnitsData = enemyUnits.map(unit => {
+                return {
+                    id: unit.id,
+                    team: unit.team,
+                    unitId: unit.unit_id,
+                    unitCode: unit.heroCode,
+                    name: unit.heroName,
+                    speed: unit.speed,
+                    health: unit.health,
+                    artifact: unit.artifactName,
+                    artifactCode: unit.artifactCode,
+                    hasImmunity: unit.has_immunity,
+                    hasCounter: unit.has_counter
+                }
+            });
+            
+            const teamOne = enemyUnitsData.filter(unit => unit.team === "teamOne");
+            const teamTwo = enemyUnitsData.filter(unit => unit.team === "teamTwo");
+    
+            return {
+                username: tower.enemy_username,
+                towerId: tower.id,
+                ...tower,
+                teamOne,
+                teamTwo
+            };
+        }));
+        
+        // console.log(towersWithUnits[0]);
+        
+        res.status(200).json(towersWithUnits);
     });
 
     app.post('/api/battle/tower', requireLogin, requireGuild, async (req, res) => {

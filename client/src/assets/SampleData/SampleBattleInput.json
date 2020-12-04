@@ -8,7 +8,7 @@
       "notes": [],
       "teamOne": [
         {
-            "enemyUnitId": 1,
+            "id": 1,
             "team": "teamOne",
             "name": "Fallen Cecilia",
             "unitCode": "c2002",
@@ -20,7 +20,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 2,
+            "id": 2,
             "team": "teamOne",
             "name": "Arbiter Vildred",
             "unitCode": "c2007",
@@ -32,7 +32,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 3,
+            "id": 3,
             "team": "teamOne",
             "name": "Tempest Surin",
             "unitCode": "c2065",
@@ -46,7 +46,7 @@
       ],
       "teamTwo": [
         {
-            "enemyUnitId": 4,
+            "id": 4,
             "team": "teamTwo",
             "name": "Last Rider Krau",
             "unitCode": "c2070",
@@ -58,7 +58,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 5,
+            "id": 5,
             "team": "teamTwo",
             "name": "Kayron",
             "unitCode": "c1023",
@@ -70,7 +70,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 6,
+            "id": 6,
             "team": "teamTwo",
             "name": "Ruele of Light",
             "unitCode": "c1022",
@@ -92,7 +92,7 @@
       "notes": [],
       "teamOne": [
         {
-            "enemyUnitId": 31,
+            "id": 31,
             "team": "teamOne",
             "name": "Fallen Cecilia",
             "unitCode": "c2002",
@@ -104,7 +104,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 32,
+            "id": 32,
             "team": "teamOne",
             "name": "Arbiter Vildred",
             "unitCode": "c2007",
@@ -116,7 +116,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 33,
+            "id": 33,
             "team": "teamOne",
             "name": "Tempest Surin",
             "unitCode": "c2065",
@@ -130,7 +130,7 @@
       ],
       "teamTwo": [
         {
-            "enemyUnitId": 34,
+            "id": 34,
             "team": "teamTwo",
             "name": "Last Rider Krau",
             "unitCode": "c2070",
@@ -142,7 +142,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 35,
+            "id": 35,
             "team": "teamTwo",
             "name": "Kayron",
             "unitCode": "c1023",
@@ -154,7 +154,7 @@
             "hasCounter": false
         },
         {
-            "enemyUnitId": 36,
+            "id": 36,
             "team": "teamTwo",
             "name": "Ruele of Light",
             "unitCode": "c1022",

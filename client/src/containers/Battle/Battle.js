@@ -11,7 +11,7 @@ import Zone from "../../components/Zone/Zone";
 import AddIcon from '../../assets/plus-circle.svg';
 import './Battle.css';
 import 'react-router-modal/css/react-router-modal.css';
-import SampleBattleInput from '../../assets/SampleData/SampleBattleInput.json'
+import axios from 'axios';
 
 class Battle extends Component  {
     constructor(props) {
@@ -19,13 +19,23 @@ class Battle extends Component  {
                 
         this.state = {
             searchField: '',
-            towersList: []
+            towersList: [],
+            errorMessage: ''
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
+        let res;
+        try {
+            res = await axios.get('/api/battle');
+        } catch(err) {
+            const { data, status } = err.response;
+            this.setState({errorMessage: `Error ${status}: ${data}`});
+            return;
+        }
+        
         this.setState({
-            towersList: SampleBattleInput
+            towersList: res.data
         });
         console.log("Battle componentDidMount call");
     }
@@ -58,7 +68,7 @@ class Battle extends Component  {
         return(        
             <>
             <div className="stronghold-header">
-                <h3>Enemy Guild Placeholder</h3>
+                <h3>Enemy Guild</h3>
                 <div className="battle-options">
                     <Link to="/Battle/Tower/New" className="add-tower">
                         <img src={AddIcon} className="svg-icon" alt="Add Fort Button"/>

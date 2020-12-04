@@ -13,7 +13,7 @@ import EditIcon from '../../assets/clipboard-edit.svg';
 // TODO: Use CSS class darken-image to indicate that a set is NOT active.
 const Unit = (props) => {
         const {
-            enemyUnitId,
+            id,
             name,
             unitCode,
             speed,
@@ -33,7 +33,7 @@ const Unit = (props) => {
                     alt="Artifact preview" 
                     data-tip={`${artifact}`} 
                 />
-                <Link to={`/Battle/Unit/${enemyUnitId}`} >
+                <Link to={`/Battle/Unit/${id}`} >
                     <img src={EditIcon} className="edit-icon svg-icon" alt="Edit icon"/>
                 </Link>
                 <div className="team-unit-image">

@@ -27,7 +27,7 @@ class Tower extends Component {
             <>
                 {filteredUnits.map(unit => 
                     <Unit 
-                        key={unit.enemyUnitId} 
+                        key={unit.id} 
                         {...unit} 
                     />
                 )}
