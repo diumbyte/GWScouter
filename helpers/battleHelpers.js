@@ -6,22 +6,22 @@ const updatedUnitProperties = (origEnemyUnit, updatedEnemyUnit, userId) => {
         let message = '';
         switch (prop) {
             case 'unit_id':
-                message = `Changed unit to ${updatedEnemyUnit.heroName}`
+                message = `Changed ${origEnemyUnit.heroName} to ${updatedEnemyUnit.heroName}`
                 break;
             case 'artifact_id':
-                message = `Changed artifact to ${updatedEnemyUnit.artifactName}`
+                message = `Changed ${origEnemyUnit.heroName}'s artifact to ${updatedEnemyUnit.artifactName}`
                 break;
             case 'speed':
-                message = `Changed speed to ${updatedEnemyUnit.speed}`
+                message = `Changed ${origEnemyUnit.heroName}'s speed to ${updatedEnemyUnit.speed}`
                 break;
             case 'health':
-                message = `Changed health to ${updatedEnemyUnit.health}`
+                message = `Changed ${origEnemyUnit.heroName}'s health to ${updatedEnemyUnit.health}`
                 break;
             case 'has_immunity':
-                message = `Changed immunity to ${updatedEnemyUnit.has_immunity}`
+                message = `Changed ${origEnemyUnit.heroName}'s immunity to ${updatedEnemyUnit.has_immunity}`
                 break;
             case 'has_counter':
-                message = `Changed counter to ${updatedEnemyUnit.has_counter}`
+                message = `Changed ${origEnemyUnit.heroName}'s counter to ${updatedEnemyUnit.has_counter}`
                 break;
         }
 
