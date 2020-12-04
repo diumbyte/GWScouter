@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
         .first();
         
     if(!isGuildAdmin) {
-        return res.status(401).send({error: "You are not authorized to do this"});
+        return res.status(401).json({errors: [{msg: "You are not authorized to do this"}]});
     }
 
     next();
