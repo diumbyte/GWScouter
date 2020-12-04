@@ -4,6 +4,7 @@ const requireLogin = require('../middlewares/requireLogin');
 const requireGuild = require('../middlewares/requireGuild');
 const requireGuildAdmin = require('../middlewares/requireGuildAdmin');
 const adminValidation = require('./validation/adminEditMemberValidation');
+const newGuildValidation = require('./validation/newGuildValidation');
 
 const db = require('../db');
 
@@ -124,22 +125,24 @@ router.post('/api/guild/invite', requireLogin, requireGuildAdmin, async (req, re
     res.status(200).json(newInviteLink);
 });
 
-router.post('/api/guild/new', requireLogin, async (req, res) => {
+router.post('/api/guild/new', requireLogin, newGuildValidation, async (req, res) => {
     const { guildName } = req.body;
     const newInviteLink = await generateNewInviteCode(db);
 
     // Create Guild
-    const newGuild = await db('guilds')
+    let newGuild;
+    try {
+        newGuild = await db('guilds')
                     .returning('id')
                     .insert({
                         name: guildName,
                         invite: newInviteLink
                     });
-    
+    } catch (err) {
+        return res.status(400).json({ errors: [{msg: "Guild name already taken."}]});
+    }
+
     const newGuildId = newGuild[0];
-
-    console.log(newGuildId);
-
     // Update current user that created guild 
     await db('users')
             .where({
@@ -158,7 +161,6 @@ router.post('/api/guild/new', requireLogin, async (req, res) => {
             });
     
     res.status(200).json("Success");
-    console.log(guildName);
 })
 
 router.post('/api/guild/join/:inviteCode', requireLogin, async (req, res) => {
