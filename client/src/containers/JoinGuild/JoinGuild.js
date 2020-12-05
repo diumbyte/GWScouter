@@ -14,7 +14,6 @@ class JoinGuild extends Component {
     componentDidMount = async () => {
         const { inviteCode } = this.props.match.params;
         let userRes, guildRes; 
-        console.log(this.props);
 
         try {
             userRes = await axios.get('/auth/user_profile');
@@ -23,6 +22,7 @@ class JoinGuild extends Component {
             const { data } = err.response;
 
             data.errors.forEach(err => toast.error(`${err.msg}`))
+            window.localStorage.setItem('redirectUrl', this.props.location.pathname);
             return this.props.history.push('/Login');
         }
 

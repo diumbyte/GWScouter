@@ -7,7 +7,7 @@ const userValidation = require('./validation/userValidation');
 router.get('/auth/discord', passport.authenticate('discord'));
 
 router.get('/auth/discord/callback', passport.authenticate('discord'), (req, res) => {
-        return res.redirect('/Guild');
+        return res.redirect('/Battle');
 });
 
 router.get('/auth/logout', (req, res) => {

@@ -26,6 +26,13 @@ class Battle extends Component  {
     }
 
     componentDidMount = async () => {
+
+        const redirectPath = window.localStorage.getItem('redirectUrl');
+        if(redirectPath) {
+            window.localStorage.removeItem('redirectUrl');
+            return this.props.history.push(redirectPath);
+        }
+        
         let res;
         try {
             res = await axios.get('/api/battle');
