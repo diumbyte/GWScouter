@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const requireGuild = require('../middlewares/requireGuild');
 const requireLogin = require('../middlewares/requireLogin');
-const { updatedUnitProperties } = require('../helpers/battleHelpers');
+const { updatedUnitProperties, arrayHasDuplicates } = require('../helpers/battleHelpers');
 const towerValidation = require('./validation/towerValidation');
 const enemyUnitValidation = require('./validation/enemyUnitValidation');
 
@@ -86,12 +86,33 @@ router.post(
         unitF,
     } = req.body;
 
+    const submittedUnits = [unitA,unitB,unitC,unitD,unitE,unitF];
+
+    if(arrayHasDuplicates(submittedUnits)) {
+        return res.status(400).json({errors: [{msg: "Unit can only appear once in a tower."}]})
+    }
+
+
+
     const currentBattleId = await db('battles')
                             .pluck('id')
                             .where({
                                 guild_id: req.user.guild_id,
                                 current_battle: true
                             });
+
+    // Have to check if a stronghold already exists in the zone
+    const strongholdInZone = await db('towers')
+                        .select('*')
+                        .where({
+                            zone,
+                            is_stronghold: true,
+                            battle_id: currentBattleId[0]
+                        });
+                        
+    if(strongholdInZone.length !== 0) {
+        return res.status(400).json({errors: [{msg: `Stronghold already exists in ${zone} zone.`}]});
+    }
 
                             
     // Create Tower
@@ -119,7 +140,7 @@ router.post(
                         });
     const unknownArtifactId = unknownArtifact[0];
     // Create Enemy Unit Entries
-    const enemyUnits = [unitA,unitB,unitC,unitD,unitE,unitF].map(unit => {
+    const enemyUnits = submittedUnits.map(unit => {
         // When artifact_id = 0 => Unknown which has id 1 in db
         const artifact_id = unit.artifactId === 0 
                         ? unknownArtifactId 

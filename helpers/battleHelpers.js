@@ -35,6 +35,13 @@ const updatedUnitProperties = (origEnemyUnit, updatedEnemyUnit, userId) => {
     return changesHistory;
 }
 
+const arrayHasDuplicates = (array) => {
+    return array
+            .map(item => item.unitId)
+            .some((item, idx, arr) => arr.indexOf(item) !== idx)
+}
+
 module.exports = {
-    updatedUnitProperties
+    updatedUnitProperties,
+    arrayHasDuplicates
 }
