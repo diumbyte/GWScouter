@@ -169,13 +169,13 @@ class UnitForm extends Component {
                             onChange={this.onInputChange}
                             values={[
                                 {
-                                    value: "hasImmunity", 
+                                    value: unitData.hasImmunity, 
                                     name: "hasImmunity", 
                                     label: "Immunity?",
                                     checked: unitData.hasImmunity
                                 },
                                 {
-                                    value: "hasCounter", 
+                                    value: unitData.hasCounter, 
                                     name: "hasCounter", 
                                     label: "Counter?",
                                     checked: unitData.hasCounter

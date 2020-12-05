@@ -120,6 +120,7 @@ class TowerForm extends Component {
         const {target: {name, value} } = event;
 
         if(unit === undefined) {
+            console.log(name, this.state[name]);
             this.setState(prevState => ({
                 ...prevState,
                 [name]: (name === "isStronghold") ? !prevState[name] : value
@@ -220,13 +221,13 @@ class TowerForm extends Component {
                         unit={unit}
                         values={[
                             {
-                                value: "hasImmunity", 
+                                value: this.state[unit].hasImmunity, 
                                 name: "hasImmunity", 
                                 label: "Immunity?",
                                 checked: this.state[unit].hasImmunity
                             },
                             {
-                                value: "hasCounter", 
+                                value: this.state[unit].hasCounter, 
                                 name: "hasCounter", 
                                 label: "Counter?",
                                 checked: this.state[unit].hasCounter
@@ -274,7 +275,7 @@ class TowerForm extends Component {
                         onChange={this.onInputChange()}
                         values={[
                             {
-                                value: "isStronghold", 
+                                value: this.state.isStronghold, 
                                 name: "isStronghold", 
                                 label: "Is Stronghold?",
                                 checked: this.state.isStronghold

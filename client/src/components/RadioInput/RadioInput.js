@@ -17,11 +17,11 @@ const RadioInput = ({
 
     // values = [{value: '', label: ''}]
     // name/checked would only be provided with checkbox
-    const radioOptions = values.map(opt => {
+    const radioOptions = values.map((opt,idx) => {
         return (
             <div 
                 className="form-control" 
-                key={opt.value}
+                key={idx}
                 style={{flex: `1 1 calc(${evenPercentage}% - 1rem)`}}
             >
                 <input 
@@ -62,10 +62,6 @@ RadioInput.propTypes = {
     title: PropTypes.string.isRequired,
     name: PropTypes.string,
     className: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.shape({
-        value: PropTypes.string.isRequired,
-        label: PropTypes.any.isRequired
-    })).isRequired,
     checkedState: PropTypes.any,
     onChange: PropTypes.func.isRequired
   }
