@@ -157,6 +157,14 @@ router.post('/api/guild/new', requireLogin, newGuildValidation, async (req, res)
                 guild_id: newGuildId, 
                 is_admin: true
             });
+
+    // Create a new battle to link to guild
+    // TODO: Figure out something better to deal with GW downtime.
+    await db('battles')
+            .insert({
+                guild_id: newGuildId,
+                current_battle: true
+            });
     
     res.status(200).json("Success");
 })

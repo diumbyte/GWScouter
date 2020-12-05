@@ -92,7 +92,8 @@ router.post(
                                 guild_id: req.user.guild_id,
                                 current_battle: true
                             });
-    
+                            
+    console.log(currentBattleId);
                             
     // Create Tower
     const newTowerId = await db('towers')
