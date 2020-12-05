@@ -61,3 +61,45 @@
     flex-direction: column;
     width: 100%;
 }
+
+/* Tower Selected Animation */
+@-webkit-keyframes selected-fade {
+    0% {
+      border: none;
+    }
+    50% {
+      border:2px solid var(--border-dark);
+
+    }
+    100% {
+        border: none;
+    }
+  }
+  @-moz-keyframes selected-fade {
+    0% {
+        border: none;
+      }
+    50% {
+    border:2px solid var(--border-dark);
+    }
+    100% {
+        border: none;
+    }
+  }
+  @keyframes selected-fade {
+    0% {
+        border: none;
+      }
+    40% {
+        border:2px solid var(--border-dark);
+    }
+    100% {
+        border: none;
+    }
+  }
+  .fade-it {
+    -webkit-animation: selected-fade 2.75s ease-in-out 0s;
+    -moz-animation: selected-fade 2.75s ease-in-out 0s;
+    -o-animation: selected-fade 2.75s ease-in-out 0s;
+    animation: selected-fade 2.75s ease-in-out 0s;
+  }

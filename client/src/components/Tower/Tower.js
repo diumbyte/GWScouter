@@ -12,7 +12,8 @@ class Tower extends Component {
         super(props);
 
         this.state = {
-            openModal: false
+            openModal: false,
+            selectedTower: false
         }
 
         const { towerData : { towerId } } = this.props;
@@ -29,6 +30,7 @@ class Tower extends Component {
                 this.towerRef.current.scrollIntoView({ 
                     behavior: 'smooth'
                 });
+                this.setState({selectedTower: true});
             }, 0);
         }
     }
@@ -57,9 +59,13 @@ class Tower extends Component {
 
     render() {
         const { towerData, towerData : {towerId} } = this.props;
-        const { openModal } = this.state;
+        const { openModal, selectedTower } = this.state;
         return (
-            <div className="tower" id={towerData.towerId} ref={this.towerRef}>
+            <div
+                id={towerData.towerId} 
+                ref={this.towerRef}
+                className={selectedTower ? "tower fade-it" : "tower"}
+            >
                 <div className="tower-data-name towers-name-width">
                     <p>{towerData.username}</p>
                     <div className="tower-data-action">
