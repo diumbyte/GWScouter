@@ -92,7 +92,7 @@ router.post(
                                 guild_id: req.user.guild_id,
                                 current_battle: true
                             });
-                            
+
     console.log(currentBattleId);
                             
     // Create Tower
@@ -113,11 +113,18 @@ router.post(
                     action: `Created tower`
                 })
 
-    
+    const unknownArtifact = await db('artifacts')
+                        .pluck('id')
+                        .where({
+                            name: "Unknown"
+                        });
+    const unknownArtifactId = unknownArtifact[0];
     // Create Enemy Unit Entries
     const enemyUnits = [unitA,unitB,unitC,unitD,unitE,unitF].map(unit => {
         // When artifact_id = 0 => Unknown which has id 1 in db
-        const artifact_id = unit.artifactId === 0 ? 1 : unit.artifactId ;
+        const artifact_id = unit.artifactId === 0 
+                        ? unknownArtifactId 
+                        : unit.artifactId;
         
         return {
             tower_id: newTowerId[0],
