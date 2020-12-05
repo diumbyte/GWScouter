@@ -67,8 +67,8 @@
     0% {
       border: none;
     }
-    50% {
-      border:2px solid var(--border-dark);
+    40% {
+      border:2px solid #eee;
 
     }
     100% {
@@ -79,8 +79,8 @@
     0% {
         border: none;
       }
-    50% {
-    border:2px solid var(--border-dark);
+    40% {
+    border:2px solid #eee;
     }
     100% {
         border: none;
@@ -91,7 +91,7 @@
         border: none;
       }
     40% {
-        border:2px solid var(--border-dark);
+        border:2px solid #eee;
     }
     100% {
         border: none;

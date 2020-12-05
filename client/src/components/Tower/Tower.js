@@ -16,7 +16,6 @@ class Tower extends Component {
             selectedTower: false
         }
 
-        const { towerData : { towerId } } = this.props;
         this.towerRef = React.createRef();
     }
 
@@ -58,7 +57,7 @@ class Tower extends Component {
     onCloseModal = () => {this.setState({openModal: false})}
 
     render() {
-        const { towerData, towerData : {towerId} } = this.props;
+        const { towerData } = this.props;
         const { openModal, selectedTower } = this.state;
         return (
             <div

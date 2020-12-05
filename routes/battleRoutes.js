@@ -259,4 +259,16 @@ router.get('/api/tower/history/:towerId', requireLogin, requireGuild, async (req
     res.status(200).json(towerHistory);
 });
 
+router.get('/api/tower/:towerId', requireLogin, requireGuild, async (req, res) => {
+    const { towerId } = req.params;
+
+    const tower = await db('towers')
+                    .select('*')
+                    .where({
+                        id: towerId
+                    }).first();
+
+    return res.status(200).json(tower);
+});
+
 module.exports = router;
