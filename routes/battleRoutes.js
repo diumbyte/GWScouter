@@ -93,7 +93,6 @@ router.post(
                                 current_battle: true
                             });
 
-    console.log(currentBattleId);
                             
     // Create Tower
     const newTowerId = await db('towers')

@@ -150,7 +150,6 @@ class TowerForm extends Component {
             await axios.post('/api/battle/tower', data);
         } catch(err) {
             const { data } = err.response;
-            console.log(data);
             return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
 

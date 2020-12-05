@@ -22,7 +22,6 @@ class Tower extends Component {
     componentDidMount() {
         const hash = window.location.hash;
         const { towerData : { towerId } } = this.props;
-        console.log(this);
         if(hash || hash === towerId) {
             setTimeout( () => {
                 this[`tower${towerId}Ref`].current.scrollIntoView({ 
