@@ -14,6 +14,7 @@ class JoinGuild extends Component {
     componentDidMount = async () => {
         const { inviteCode } = this.props.match.params;
         let userRes, guildRes; 
+        console.log(this.props);
 
         try {
             userRes = await axios.get('/auth/user_profile');

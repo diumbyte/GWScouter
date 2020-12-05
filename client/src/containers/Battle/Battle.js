@@ -32,7 +32,8 @@ class Battle extends Component  {
         } catch(err) {
             const { data } = err.response;
 
-            return data.errors.forEach(err => toast.error(`${err.msg}`))
+            data.errors.forEach(err => toast.error(`${err.msg}`))
+            return this.props.history.push('/NoGuild');
         }
         
         this.setState({
