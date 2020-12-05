@@ -43,7 +43,10 @@ class AutosuggestInput extends Component {
     }
 
     getSuggestionValue = suggestion => {
-        return suggestion.name;
+        return this.props.suggestionProp
+            ? suggestion[this.props.suggestionProp]
+            : suggestion.name
+        
     }
 
     renderSuggestion = suggestion => (
@@ -91,6 +94,7 @@ class AutosuggestInput extends Component {
             id,
             // onChange,
             onSuggestionSelected,
+            renderSuggestion,
             required
         } = this.props;
 
@@ -116,10 +120,10 @@ class AutosuggestInput extends Component {
                     onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
                     onSuggestionsClearRequested={this.onSuggestionsClearRequested}
                     getSuggestionValue={this.getSuggestionValue}
-                    renderSuggestion={this.renderSuggestion}
                     renderInputComponent={this.renderInputComponent}
                     inputProps={inputProps}
                     onSuggestionSelected={onSuggestionSelected}
+                    renderSuggestion={renderSuggestion ? renderSuggestion : this.renderSuggestion}
                 />
             </div>
         );

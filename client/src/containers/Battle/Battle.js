@@ -65,9 +65,11 @@ class Battle extends Component  {
 
     onSuggestionSelected = (event, { suggestion, suggestionValue} ) => {
         const { history } = this.props;
-        const { zone } = suggestion;
+        const { zone, id } = suggestion;
 
-        history.push(`/Battle/${zone}`);
+        const zoneNav = zone.charAt(0).toUpperCase() + zone.slice(1);
+
+        history.push(`/Battle/${zoneNav}#${id}`);
     }
     
     render() {
@@ -92,7 +94,7 @@ class Battle extends Component  {
                         optionsList={this.state.towersList}
                         placeholder="Search for tower"
                         searchKeys={["username"]}
-                        suggestionProp={"username"}
+                        suggestionProp={"enemy_username"}
                         onSuggestionSelected={this.onSuggestionSelected}
                     />
                 </div>

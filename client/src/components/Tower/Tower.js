@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Unit from '../Unit/Unit';
 import HistoryIcon from '../../assets/history.svg';
 import { Modal } from 'react-responsive-modal';
@@ -13,6 +13,22 @@ class Tower extends Component {
 
         this.state = {
             openModal: false
+        }
+
+        const { towerData : { towerId } } = this.props;
+        this[`tower${towerId}Ref`] = React.createRef();
+    }
+
+    componentDidMount() {
+        const hash = window.location.hash;
+        const { towerData : { towerId } } = this.props;
+        console.log(this);
+        if(hash || hash === towerId) {
+            setTimeout( () => {
+                this[`tower${towerId}Ref`].current.scrollIntoView({ 
+                    behavior: 'smooth'
+                });
+            }, 0);
         }
     }
 
@@ -42,7 +58,7 @@ class Tower extends Component {
         const { towerData } = this.props;
         const { openModal } = this.state;
         return (
-            <div className="tower">
+            <div className="tower" id={towerData.towerId} ref={this[`tower${towerData.towerId}Ref`]}>
                 <div className="tower-data-name towers-name-width">
                     <p>{towerData.username}</p>
                     <div className="tower-data-action">
