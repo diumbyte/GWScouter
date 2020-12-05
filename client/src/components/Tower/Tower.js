@@ -16,7 +16,7 @@ class Tower extends Component {
         }
 
         const { towerData : { towerId } } = this.props;
-        this[`tower${towerId}Ref`] = React.createRef();
+        this.towerRef = React.createRef();
     }
 
     componentDidMount() {
@@ -26,7 +26,7 @@ class Tower extends Component {
         // console.log(this);
         if(hash && hash === towerId) {
             setTimeout( () => {
-                this[`tower${towerId}Ref`].current.scrollIntoView({ 
+                this.towerRef.current.scrollIntoView({ 
                     behavior: 'smooth'
                 });
             }, 0);
@@ -56,10 +56,10 @@ class Tower extends Component {
     onCloseModal = () => {this.setState({openModal: false})}
 
     render() {
-        const { towerData } = this.props;
+        const { towerData, towerData : {towerId} } = this.props;
         const { openModal } = this.state;
         return (
-            <div className="tower" id={towerData.towerId} ref={this[`tower${towerData.towerId}Ref`]}>
+            <div className="tower" id={towerData.towerId} ref={this.towerRef}>
                 <div className="tower-data-name towers-name-width">
                     <p>{towerData.username}</p>
                     <div className="tower-data-action">
