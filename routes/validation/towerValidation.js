@@ -11,6 +11,7 @@ const unitPropChecker = (prop) => {
 
 const towerHandler = [
     body('username')
+        .isLength({min: 1}).withMessage("Username must not be empty.")
         .matches(/^[a-z0-9 ]+$/i)
         .withMessage("Username must only be alphanumeric characters"),
     body('isStronghold')
@@ -22,7 +23,8 @@ const towerHandler = [
         .isIn(teamOpts)
         .withMessage(`Team must be one of the following: ${teamOpts}`),
     body(unitPropChecker('unitId'))
-        .isInt({min: 0}),
+        .isInt({min: 1})
+        .withMessage("Units names are required."),
     body(unitPropChecker('artifactId'))
         .isInt({min: 0}),
     body(unitPropChecker('speed'))
