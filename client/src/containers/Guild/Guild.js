@@ -67,7 +67,7 @@ class Guild extends Component {
             guildName,
             userIsGuildAdmin,
             guildMembers: usersInGuild, 
-            guildInviteLink: `${process.env.PUBLIC_URL}/Guild/Join/${invite}`
+            guildInviteLink: `${window.location.host}/Guild/Join/${invite}`
         });
     }
 
@@ -90,7 +90,7 @@ class Guild extends Component {
 
         const newInviteCode = data;
 
-        this.setState({guildInviteLink: `${process.env.PUBLIC_URL}/Guild/Join/${newInviteCode}`});
+        this.setState({guildInviteLink: `${window.location.host}/Guild/Join/${newInviteCode}`});
     }
 
     onEditMember = (idx) => async (e) => {
