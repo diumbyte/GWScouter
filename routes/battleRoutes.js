@@ -110,7 +110,7 @@ router.post(
                             battle_id: currentBattleId[0]
                         });
                         
-    if(strongholdInZone.length !== 0) {
+    if(isStronghold && strongholdInZone.length !== 0) {
         return res.status(400).json({errors: [{msg: `Stronghold already exists in ${zone} zone.`}]});
     }
 

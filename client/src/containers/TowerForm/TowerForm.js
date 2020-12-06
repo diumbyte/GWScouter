@@ -120,7 +120,6 @@ class TowerForm extends Component {
         const {target: {name, value} } = event;
 
         if(unit === undefined) {
-            console.log(name, this.state[name]);
             this.setState(prevState => ({
                 ...prevState,
                 [name]: (name === "isStronghold") ? !prevState[name] : value
