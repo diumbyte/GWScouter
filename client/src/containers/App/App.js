@@ -12,6 +12,7 @@ import User from '../User/User';
 import JoinGuild from '../JoinGuild/JoinGuild';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TowerEdit from '../../components/TowerEdit/TowerEdit';
 
 const App = () => {
   toast.configure();
@@ -31,6 +32,7 @@ const App = () => {
             <Route exact path="/Guild" component={Guild}></Route>
             <Route exact path="/NoGuild" component={UserWithoutGuild}></Route>
             {/* Forms */}
+            <Route exact path="/Tower/:towerId" component={TowerEdit} />
             <Route exact path="/Battle/Unit/:unitId" component={UnitForm} />
             <Route exact path="/Battle/Tower/New" component={TowerForm} />
             <Route path="/Battle" component={ Battle }></Route>

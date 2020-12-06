@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Unit from '../Unit/Unit';
-import HistoryIcon from '../../assets/history.svg';
 import { Modal } from 'react-responsive-modal';
+import { Link } from 'react-router-dom';
+import Unit from '../Unit/Unit';
 import 'react-responsive-modal/styles.css';
 import TowerHistory from '../TowerHistory/TowerHistory';
+import HistoryIcon from '../../assets/history.svg';
+import PencilIcon from '../../assets/pencil-edit.svg'
 // import NotesIcon from '../../assets/note-multiple.svg';
 import './Tower.css';
 
@@ -57,7 +59,7 @@ class Tower extends Component {
 
     render() {
         const { towerData } = this.props;
-        const { openModal, selectedTower } = this.state;
+        const { openModal, selectedTower, activeModal } = this.state;
         return (
             <div
                 id={towerData.towerId} 
@@ -73,6 +75,13 @@ class Tower extends Component {
                                 alt="Tower history button"
                                 onClick={this.onOpenModal}
                             />
+                            <Link to={`/Tower/${towerData.towerId}`}>
+                                <img 
+                                    className="svg-icon"
+                                    src={PencilIcon}
+                                    alt="Tower edit icon"
+                                />
+                            </Link>
                         {/* <img className="svg-icon" src={NotesIcon} alt="Notes button"/> */}
                     </div>
                 </div>

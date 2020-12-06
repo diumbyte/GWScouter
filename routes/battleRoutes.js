@@ -4,6 +4,7 @@ const requireLogin = require('../middlewares/requireLogin');
 const { updatedUnitProperties, arrayHasDuplicates } = require('../helpers/battleHelpers');
 const towerValidation = require('./validation/towerValidation');
 const enemyUnitValidation = require('./validation/enemyUnitValidation');
+const editTowerValidation = require('./validation/editTowerValidation');
 
 const db = require('../db');
 
@@ -269,6 +270,42 @@ router.get('/api/tower/:towerId', requireLogin, requireGuild, async (req, res) =
                     }).first();
 
     return res.status(200).json(tower);
+});
+
+router.post('/api/tower/:towerId', requireLogin, requireGuild, editTowerValidation, async (req, res) => {
+    const { towerId } = req.params;
+    const { isStronghold, username, zone } = req.body;
+
+    const currentBattleId = await db('battles')
+    .pluck('id')
+    .where({
+        guild_id: req.user.guild_id,
+        current_battle: true
+    });
+
+    // Have to check if a stronghold already exists in the zone
+    const strongholdInZone = await db('towers')
+    .select('*')
+    .where({
+        zone,
+        is_stronghold: true,
+        battle_id: currentBattleId[0]
+    });
+    
+    if(isStronghold && strongholdInZone.length !== 0) {
+        return res.status(400).json({errors: [{msg: `Stronghold already exists in ${zone} zone.`}]});
+    }
+
+    await db('towers')
+            .where({
+                id: towerId
+            })
+            .update({
+                enemy_username: username,
+                is_stronghold: isStronghold
+            })
+    
+    res.json(":)");
 });
 
 module.exports = router;
