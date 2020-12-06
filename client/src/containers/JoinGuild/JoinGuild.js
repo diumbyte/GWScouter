@@ -53,7 +53,7 @@ class JoinGuild extends Component {
             return data.errors.forEach(err => toast.error(`${err.msg}`))
         }
         
-        window.location.href = '/Guild';
+        window.location.href = '/Battle';
     }
 
     render() {
