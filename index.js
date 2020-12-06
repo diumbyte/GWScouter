@@ -5,6 +5,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 require('./services/passport');
 app.disable('x-powered-by');
+const sslRedirect = require('heroku-ssl-redirect').default;
 
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());   
@@ -16,6 +17,7 @@ app.use(
 )
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(sslRedirect());
 
 // Router
 app.use('/', require('./routes/authRoutes'));

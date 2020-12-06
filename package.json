@@ -23,6 +23,7 @@
     "date-fns-tz": "^1.0.12",
     "express": "^4.17.1",
     "express-validator": "^6.7.0",
+    "heroku-ssl-redirect": "^0.1.1",
     "knex": "^0.21.12",
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
