@@ -36,7 +36,8 @@ cron.schedule('0 10 * * 1,3,5', async () => {
             guild_id: guildId,
             started_at: startSession.toJSDate(),
             ends_at: endSession.toJSDate(),
-            current_battle: true
+            current_battle: true,
+            is_active: true
         }
     });
 

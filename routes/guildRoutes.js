@@ -3,7 +3,7 @@ const generateNewInviteCode = require('../helpers/guildHelpers')
 const requireLogin = require('../middlewares/requireLogin');
 const requireGuild = require('../middlewares/requireGuild');
 const requireGuildAdmin = require('../middlewares/requireGuildAdmin');
-const { isActiveBattleSession } = require('../helpers/dateHelpers')
+const { isActiveBattleSession, startBattleSession, endBattleSession } = require('../helpers/dateHelpers')
 const adminValidation = require('./validation/adminEditMemberValidation');
 const newGuildValidation = require('./validation/newGuildValidation');
 
@@ -159,10 +159,20 @@ router.post('/api/guild/new', requireLogin, newGuildValidation, async (req, res)
                 is_admin: true
             });
 
+    
+
     // Create a new battle to link to guild
+    let ends_at;
+    if(isActiveBattleSession()) {
+        ends_at = endBattleSession(startBattleSession());
+    } else {
+        ends_at = nextTargetDayOfWeek([1,3,5]).toJSDate();
+    }
+
     await db('battles')
             .insert({
                 guild_id: newGuildId,
+                ends_at,
                 current_battle: true,
                 is_active: isActiveBattleSession()
             });

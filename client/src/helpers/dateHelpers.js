@@ -41,7 +41,9 @@ const isTargetDayOfWeekInFuture = (targetDayOfWeek) => {
     const currentDate = DateTime.utc();
     const currentDayOfWeek = currentDate.weekday;
 
-    if(currentDayOfWeek <= targetDayOfWeek) {
+    
+    if(currentDayOfWeek < targetDayOfWeek) {
+        // console.log(`currentDayOfWeek: ${currentDayOfWeek}\ttargetDayOfWeek: ${targetDayOfWeek}`);
         return currentDate.set({weekday: targetDayOfWeek, hour: 10, minute: 0, second: 0});
     } 
     return false;
@@ -54,6 +56,7 @@ const nextTargetDayOfWeek = (daysOfWeekArray) => {
     
         // Iterate and find all possible matches
         const targetDayChecks = nextDaysInNeed.map(isTargetDayOfWeekInFuture);
+
     
         // Select the first matching day of week. Ignore subsequent matches
         const thisWeek = targetDayChecks.find(check => check instanceof DateTime)
