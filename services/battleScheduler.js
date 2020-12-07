@@ -11,12 +11,19 @@ cron.schedule('0 10 * * 2,4,6', async () => {
     console.log("Closing all current battles.")
     
     await db.raw(`UPDATE public.battles
-        SET current_battle=false;`);
+        SET is_active=false;`);
 
     console.log("Battles closed.")
 }, {timezone: "Etc/UTC"});
 
 cron.schedule('0 10 * * 1,3,5', async () => {
+    console.log("Retiring inactive battles");
+
+    await db.raw(`UPDATE public.battles
+    SET current_battle=false;`);
+
+    console.log("Inactive battles retired");
+    
     console.log("Creating new current battles for guilds");
     const guildIds = await db('guilds')
         .pluck('id');

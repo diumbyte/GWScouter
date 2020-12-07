@@ -30,12 +30,12 @@ export default class BattleCountdown extends Component {
 
         console.log(data);
 
-        const targetTime = data.current_battle 
+        const targetTime = data.is_active 
             ? data.ends_at
             : nextTargetDayOfWeek([1,3,5]).toJSDate();
         
         this.setState({
-            isActiveBattle: data.current_battle,
+            isActiveBattle: data.is_active,
             targetTime
         })
     }
@@ -46,7 +46,7 @@ export default class BattleCountdown extends Component {
 
         // How to display time
         if(hours >= 1) {
-            timeFormat = `${hours}h`
+            timeFormat = `${hours}h ${minutes}m`
         } else {
             timeFormat = `${minutes}m`
         }

@@ -3,6 +3,7 @@ const generateNewInviteCode = require('../helpers/guildHelpers')
 const requireLogin = require('../middlewares/requireLogin');
 const requireGuild = require('../middlewares/requireGuild');
 const requireGuildAdmin = require('../middlewares/requireGuildAdmin');
+const { isActiveBattleSession } = require('../helpers/dateHelpers')
 const adminValidation = require('./validation/adminEditMemberValidation');
 const newGuildValidation = require('./validation/newGuildValidation');
 
@@ -159,11 +160,11 @@ router.post('/api/guild/new', requireLogin, newGuildValidation, async (req, res)
             });
 
     // Create a new battle to link to guild
-    // TODO: Figure out something better to deal with GW downtime.
     await db('battles')
             .insert({
                 guild_id: newGuildId,
-                current_battle: true
+                current_battle: true,
+                is_active: isActiveBattleSession()
             });
     
     res.status(200).json("Success");

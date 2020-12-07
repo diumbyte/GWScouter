@@ -6,6 +6,8 @@ const towerValidation = require('./validation/towerValidation');
 const enemyUnitValidation = require('./validation/enemyUnitValidation');
 const editTowerValidation = require('./validation/editTowerValidation');
 
+const { startBattleSession, endBattleSession } = require('../helpers/dateHelpers');
+
 const db = require('../db');
 
 router.get('/api/battle/time', requireLogin, requireGuild, async (req, res) => {
@@ -20,6 +22,7 @@ router.get('/api/battle/time', requireLogin, requireGuild, async (req, res) => {
     if(battleInfo === undefined) {
         return res.json({
             current_battle: false,
+            is_active: false,
             ends_at: 0
         })
     }
