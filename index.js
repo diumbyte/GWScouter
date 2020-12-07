@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
 const keys = require('./config/keys');
-const cookieSession = require('cookie-session');
 const passport = require('passport');
-require('./services/passport');
-app.disable('x-powered-by');
+const cookieSession = require('cookie-session');
 const sslRedirect = require('heroku-ssl-redirect').default;
+
+app.disable('x-powered-by');
+require('./services/passport');
+require('./services/battleScheduler');
+
 
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());   

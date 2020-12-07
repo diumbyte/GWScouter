@@ -59,7 +59,7 @@ class Tower extends Component {
 
     render() {
         const { towerData } = this.props;
-        const { openModal, selectedTower, activeModal } = this.state;
+        const { openModal, selectedTower } = this.state;
         return (
             <div
                 id={towerData.towerId} 

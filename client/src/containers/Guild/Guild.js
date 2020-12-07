@@ -74,7 +74,7 @@ class Guild extends Component {
     onCopyInviteLink = () => {
         const { guildInviteLink } = this.state;
 
-        navigator.clipboard.writeText(guildInviteLink);
+        navigator.clipboard.writeText(`https://${guildInviteLink}`);
     }
 
     onRefreshInviteLink = async () => {
