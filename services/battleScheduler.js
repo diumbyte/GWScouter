@@ -47,8 +47,8 @@ cron.schedule('0 10 * * 1,3,5', async () => {
                 .returning('*')
                 .insert(battlesToInsert);
         
+            trx.commit();
             console.log("Successfully created battles."); 
-    
         });
     } catch(e) {
         console.log(e);
