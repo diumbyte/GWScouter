@@ -8,6 +8,24 @@ const editTowerValidation = require('./validation/editTowerValidation');
 
 const db = require('../db');
 
+router.get('/api/battle/time', requireLogin, requireGuild, async (req, res) => {
+    const battleInfo = await db('battles')
+                        .select('*')
+                        .where({
+                            guild_id: req.user.guild_id,
+                            current_battle: true
+                        })
+                        .first();
+
+    if(battleInfo === undefined) {
+        return res.json({
+            current_battle: false,
+            ends_at: 0
+        })
+    }
+    res.json(battleInfo);
+});
+
 router.get('/api/battle', requireLogin, requireGuild, async (req, res) => {
     
     // Get current battle
@@ -17,6 +35,10 @@ router.get('/api/battle', requireLogin, requireGuild, async (req, res) => {
                             guild_id: req.user.guild_id,
                             current_battle: true
                         });
+                        
+    if(currentBattleId.length === 0) {
+        return res.status(422).json({errors: [{msg: "No active battle."}]})
+    }
 
     const towers = await db('towers')
                         .select('*')

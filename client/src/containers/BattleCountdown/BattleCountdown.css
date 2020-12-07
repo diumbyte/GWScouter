@@ -1,0 +1,15 @@
+.countdown-container {
+    display: flex;
+    align-items: center;
+    color: var(--primary-text);
+    /* font-size: 1rem; */
+    width: 100%;
+}
+
+.countdown-container span {
+    margin: 0 .5rem;
+}
+
+/* .countdown-container .svg-icon {
+    width: 18px;
+} */

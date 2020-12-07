@@ -11,6 +11,10 @@
     margin-bottom: 0;
 }
 
+.stronghold-header .react-autosuggest__container {
+    padding: 1rem;
+}
+
 .battle-options {
     display: flex;
 }
@@ -20,6 +24,7 @@
     align-items: center;
     color: var(--primary-text);
     margin-right: 1rem;
+    min-width: 110px;
 }
 
 .battle-options .add-tower:hover {
@@ -44,5 +49,5 @@
 
 /* Search CSS */
 .search-field .react-autosuggest__suggestions-container--open  {
-    top: 60px;
+    top: 52px;
 }

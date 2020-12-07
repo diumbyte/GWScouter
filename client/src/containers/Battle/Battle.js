@@ -9,6 +9,7 @@ import AutosuggestInput from '../AutosuggestInput/AutosuggestInput';
 import TowersNav from "../../components/TowersNav/TowersNav";
 import Zone from "../../components/Zone/Zone";
 import AddIcon from '../../assets/plus-circle.svg';
+import BattleCountdown from '../BattleCountdown/BattleCountdown'
 import './Battle.css';
 import 'react-router-modal/css/react-router-modal.css';
 import axios from 'axios';
@@ -40,7 +41,7 @@ class Battle extends Component  {
             const { data } = err.response;
 
             data.errors.forEach(err => toast.error(`${err.msg}`))
-            return this.props.history.push('/NoGuild');
+            return this.props.history.push('/Guild');
         }
         
         this.setState({
@@ -80,6 +81,7 @@ class Battle extends Component  {
             <div className="stronghold-header">
                 <h3>Enemy Guild</h3>
                 <div className="battle-options">
+                    <BattleCountdown />
                     <Link to="/Battle/Tower/New" className="add-tower">
                         <img src={AddIcon} className="svg-icon" alt="Add Fort Button"/>
                         <p>Add Tower</p>

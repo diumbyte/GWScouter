@@ -1,7 +1,4 @@
 const router = require('express').Router();
-const { DateTime, Interval } = require('luxon');
-const { nextTargetDayOfWeek } = require('../helpers/dateHelpers');
-
 const db = require('../db');
 
 router.get('/api/hero', async (req, res) => {
