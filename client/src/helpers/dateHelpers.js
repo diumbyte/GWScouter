@@ -43,7 +43,6 @@ const isTargetDayOfWeekInFuture = (targetDayOfWeek) => {
 
     
     if(currentDayOfWeek < targetDayOfWeek) {
-        // console.log(`currentDayOfWeek: ${currentDayOfWeek}\ttargetDayOfWeek: ${targetDayOfWeek}`);
         return currentDate.set({weekday: targetDayOfWeek, hour: 10, minute: 0, second: 0});
     } 
     return false;

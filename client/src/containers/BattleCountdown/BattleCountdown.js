@@ -28,8 +28,6 @@ export default class BattleCountdown extends Component {
 
         const { data } = res;
 
-        console.log(data);
-
         const targetTime = data.is_active 
             ? data.ends_at
             : nextTargetDayOfWeek([1,3,5]).toJSDate();
