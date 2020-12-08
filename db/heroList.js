@@ -195,6 +195,7 @@ module.exports = [
     { code: "c3032", name: "Taranor Guard" },
     { code: "c3002", name: "Taranor Royal Guard" },
     { code: "c3021", name: "Tieria" },
-    { code: "c3065", name: "Wanda" }
+    { code: "c3065", name: "Wanda" },
+    { code: "c1110", name: "Flan"}
   ]
   
