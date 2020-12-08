@@ -3,7 +3,7 @@ const generateNewInviteCode = require('../helpers/guildHelpers')
 const requireLogin = require('../middlewares/requireLogin');
 const requireGuild = require('../middlewares/requireGuild');
 const requireGuildAdmin = require('../middlewares/requireGuildAdmin');
-const { isActiveBattleSession, startBattleSession, endBattleSession } = require('../helpers/dateHelpers')
+const { nextTargetDayOfWeek, isActiveBattleSession, startBattleSession, endBattleSession } = require('../helpers/dateHelpers')
 const adminValidation = require('./validation/adminEditMemberValidation');
 const newGuildValidation = require('./validation/newGuildValidation');
 
