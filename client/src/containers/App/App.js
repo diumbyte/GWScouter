@@ -6,7 +6,7 @@ import TowerForm from '../TowerForm/TowerForm';
 import Guild from '../Guild/Guild';
 import LoginPage from '../LoginPage/LoginPage';
 import UserWithoutGuild from '../UserWithoutGuild/UserWithoutGuild';
-import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
+import { Switch, withRouter, Redirect } from 'react-router-dom';
 import './App.css';
 import User from '../User/User';
 import JoinGuild from '../JoinGuild/JoinGuild';

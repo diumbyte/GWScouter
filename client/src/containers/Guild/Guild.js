@@ -149,7 +149,7 @@ class Guild extends Component {
                             <>
                             <Td>
                                 {   userId === item.userId
-                                    ? <></>
+                                    ? <span>&nbsp;</span>
                                     : 
                                     <input 
                                         type="checkbox" 
@@ -162,7 +162,7 @@ class Guild extends Component {
                             </Td>
                             <Td>
                                 {   userId === item.userId
-                                    ? <></>
+                                    ? <span>&nbsp;</span>
                                     : 
                                     <img 
                                         src={RemoveIcon} 

@@ -7,7 +7,7 @@ const { startBattleSession, endBattleSession } = require('../helpers/dateHelpers
 // 2,4,6 = Mon,Wed,Fri. At 10:00 UTC
 // CRON 
 // Update all battle current flags to false
-cron.schedule('0 10 * * 2,4,6', async () => {
+cron.schedule('0 10 * * Tuesday,Thursday,Saturday', async () => {
     console.log("Closing all current battles.")
     
     await db.raw(`UPDATE public.battles
@@ -16,15 +16,14 @@ cron.schedule('0 10 * * 2,4,6', async () => {
     console.log("Battles closed.")
 }, {timezone: "Etc/UTC"});
 
-cron.schedule('0 10 * * 1,3,5', async () => {
-    
+cron.schedule('0 10 * * Monday,Wednesday,Friday', async () => {
     // Trx: If function returns successfully then trx.commit() is implicitly called.
     // If an error is thrown by any of the funcs then trx.rollback() is implicitly called.
     await db.transaction(async trx => {
         console.log("Retiring inactive battles");
 
         await trx.raw(`UPDATE public.battles
-        SET current_battle=false;`);
+        SET current_battle=false,is_active=false;`);
     
         console.log("Inactive battles retired");
 
@@ -46,7 +45,6 @@ cron.schedule('0 10 * * 1,3,5', async () => {
         });
     
         await trx('battles')
-            .returning('*')
             .insert(battlesToInsert);
     
         console.log("Successfully created battles."); 
