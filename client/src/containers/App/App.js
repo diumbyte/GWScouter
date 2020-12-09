@@ -13,6 +13,7 @@ import JoinGuild from '../JoinGuild/JoinGuild';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TowerEdit from '../../components/TowerEdit/TowerEdit';
+import TitledRoute from '../../components/TitledRoute/TitledRoute';
 
 const App = () => {
   toast.configure();
@@ -22,20 +23,20 @@ const App = () => {
       <Header />
       <Main>
           <Switch>
-            <Route exact path="/">Home page</Route>
-            <Route exact path="/Home">
+            <TitledRoute exact path="/">Home page</TitledRoute>
+            <TitledRoute exact path="/Home">
               <Redirect to="/"/>
-            </Route>
-            <Route exact path="/User" component={ User }></Route>
-            <Route exact path="/Login" component={ LoginPage }></Route>
-            <Route exact path="/Guild/Join/:inviteCode" component={JoinGuild}></Route>
-            <Route exact path="/Guild" component={Guild}></Route>
-            <Route exact path="/NoGuild" component={UserWithoutGuild}></Route>
+            </TitledRoute>
+            <TitledRoute title="User Profile" exact path="/User" component={ User }></TitledRoute>
+            <TitledRoute title="Login" exact path="/Login" component={ LoginPage }></TitledRoute>
+            <TitledRoute title="Join Guild" exact path="/Guild/Join/:inviteCode" component={JoinGuild}></TitledRoute>
+            <TitledRoute title="Guild Profile" exact path="/Guild" component={Guild}></TitledRoute>
+            <TitledRoute title="No Guild" exact path="/NoGuild" component={UserWithoutGuild}></TitledRoute>
             {/* Forms */}
-            <Route exact path="/Tower/:towerId" component={TowerEdit} />
-            <Route exact path="/Battle/Unit/:unitId" component={UnitForm} />
-            <Route exact path="/Battle/Tower/New" component={TowerForm} />
-            <Route path="/Battle" component={ Battle }></Route>
+            <TitledRoute title="Edit Tower" exact path="/Tower/:towerId" component={TowerEdit} />
+            <TitledRoute title="Edit Unit" exact path="/Battle/Unit/:unitId" component={UnitForm} />
+            <TitledRoute title="Create Tower" exact path="/Battle/Tower/New" component={TowerForm} />
+            <TitledRoute title="Battle" path="/Battle" component={ Battle }></TitledRoute>
             {/* Default 404 Route */}
             {/* <Route component={NoMatch}/> */}
           </Switch>
