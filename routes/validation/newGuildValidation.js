@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 const newGuildHandler = [
     body('guildName')
         .isLength({min: 0})
-        .matches(/^[a-z0-9 ]+$/i).withMessage("Guild name must only be alphanumeric characters")
+        .matches(/^[a-z0-9 \-_\/]+$/i).withMessage("Guild name must only be alphanumeric characters")
 ];
 
 const checkValidNewGuild = (req, res, next) => {

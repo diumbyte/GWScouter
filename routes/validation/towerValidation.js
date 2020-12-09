@@ -12,7 +12,7 @@ const unitPropChecker = (prop) => {
 const towerHandler = [
     body('username')
         .isLength({min: 1}).withMessage("Username must not be empty.")
-        .matches(/^[a-z0-9 ]+$/i)
+        .matches(/^[a-z0-9 \-_\/]+$/i)
         .withMessage("Username must only be alphanumeric characters"),
     body('isStronghold')
         .isBoolean(),
