@@ -96,6 +96,9 @@ class Guild extends Component {
         const [...guildMembersCopy] = guildMembers;
         const { userId, isAdmin, username} = guildMembers[idx];
 
+        if(this.isActionOnSelf(this.state.userId, userId)) return;
+
+
         try {
             await axios.post(`/api/guild/user/${userId}`, {
                 newIsAdmin: !isAdmin,
@@ -119,6 +122,8 @@ class Guild extends Component {
     }
 
     onRemoveMember = async (userId) => {
+        if(this.isActionOnSelf(this.state.userId, userId)) return;
+        
         const listWithoutRemovedMember = this.state.guildMembers.filter(mbr => mbr.userId !== userId);
         
         try {
@@ -135,6 +140,14 @@ class Guild extends Component {
 
     }
 
+    isActionOnSelf = (userId, memberId) => {
+        if(userId === memberId) {
+            toast.warn("You cannot perform this action on yourself.");
+        }
+
+        return userId === memberId;
+    }
+
     buildTableData = () => {
         const { userId, userIsGuildAdmin, guildMembers } = this.state;
         return guildMembers.map((item, idx) => {
@@ -146,7 +159,13 @@ class Guild extends Component {
                         :
                             <>
                             <td>
-                                {   userId === item.userId
+                                    <input 
+                                        type="checkbox" 
+                                        checked={guildMembers[idx].isAdmin}
+                                        value={guildMembers[idx].isAdmin}
+                                        onChange={this.onEditMember(idx)}
+                                    />
+                                {/* {   userId === item.userId
                                     ? <span>&nbsp;</span>
                                     : 
                                     <input 
@@ -156,10 +175,16 @@ class Guild extends Component {
                                         onChange={this.onEditMember(idx)}
                                     />
 
-                                }
+                                } */}
                             </td>
                             <td>
-                                {   userId === item.userId
+                                <img 
+                                    src={RemoveIcon} 
+                                    alt="Remove member from guild icon"
+                                    className="svg-icon"
+                                    onClick={() => this.onRemoveMember(item.userId)}
+                                />
+                                {/* {   userId === item.userId
                                     ? <span>&nbsp;</span>
                                     : 
                                     <img 
@@ -168,7 +193,7 @@ class Guild extends Component {
                                         className="svg-icon"
                                         onClick={() => this.onRemoveMember(item.userId)}
                                     />
-                                }
+                                } */}
                             </td>
                             </>
                     }
