@@ -6,7 +6,7 @@ import TowerForm from '../TowerForm/TowerForm';
 import Guild from '../Guild/Guild';
 import LoginPage from '../LoginPage/LoginPage';
 import UserWithoutGuild from '../UserWithoutGuild/UserWithoutGuild';
-import { Switch, withRouter, Redirect } from 'react-router-dom';
+import { Switch, withRouter, Redirect, Route } from 'react-router-dom';
 import './App.css';
 import User from '../User/User';
 import JoinGuild from '../JoinGuild/JoinGuild';
@@ -14,6 +14,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TowerEdit from '../../components/TowerEdit/TowerEdit';
 import TitledRoute from '../../components/TitledRoute/TitledRoute';
+import TestUser from '../TestUser/TestUser';
 
 const App = () => {
   toast.configure();
@@ -27,6 +28,7 @@ const App = () => {
             <TitledRoute exact path="/Home">
               <Redirect to="/"/>
             </TitledRoute>
+            <Route exact path="/TestUser" component={TestUser}/>
             <TitledRoute title="User Profile" exact path="/User" component={ User }></TitledRoute>
             <TitledRoute title="Login" exact path="/Login" component={ LoginPage }></TitledRoute>
             <TitledRoute title="Join Guild" exact path="/Guild/Join/:inviteCode" component={JoinGuild}></TitledRoute>

@@ -3,6 +3,7 @@ const app = express();
 const keys = require('./config/keys');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
 const sslRedirect = require('heroku-ssl-redirect').default;
 
 app.disable('x-powered-by');
@@ -18,6 +19,7 @@ app.use(
         keys: [keys.cookieKey]
     })
 )
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(sslRedirect());

@@ -4,6 +4,9 @@ const db = require('../db');
 const requireLogin = require('../middlewares/requireLogin');
 const userValidation = require('./validation/userValidation');
 
+const Keygrip = require('keygrip');
+const keys = require('../config/keys');
+
 router.get('/auth/discord', passport.authenticate('discord'));
 
 router.get('/auth/discord/callback', passport.authenticate('discord'), (req, res) => {
@@ -16,6 +19,7 @@ router.get('/auth/logout', (req, res) => {
 });
 
 router.get('/auth/current_user', (req, res) => {
+    console.log(req.session);
     if(req.user) {
         const {discord_id, ...user} = req.user;
         return res.status(200).json(user);
@@ -59,6 +63,19 @@ router.post('/auth/user', requireLogin, userValidation, async (req, res) => {
     }
 
     res.status(200).json(updatedUser[0]);
+});
+
+router.get('/auth/test_account_login', async (req, res) => {
+    if(process.env.NODE_ENV === 'production') {
+        req.session.passport = {
+            user: 8
+        }
+    } else {
+        req.session.passport = {
+            user: 9
+        }
+    }
+    res.json({});
 });
 
 module.exports = router;
