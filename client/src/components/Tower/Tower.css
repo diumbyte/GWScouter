@@ -98,8 +98,8 @@
     }
   }
   .fade-it {
-    -webkit-animation: selected-fade 2.75s ease-in-out 0s;
-    -moz-animation: selected-fade 2.75s ease-in-out 0s;
-    -o-animation: selected-fade 2.75s ease-in-out 0s;
-    animation: selected-fade 2.75s ease-in-out 0s;
+    -webkit-animation: selected-fade 2s ease-in-out 0s;
+    -moz-animation: selected-fade 2s ease-in-out 0s;
+    -o-animation: selected-fade 2s ease-in-out 0s;
+    animation: selected-fade 2s ease-in-out 0s;
   }
