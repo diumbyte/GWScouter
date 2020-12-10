@@ -308,14 +308,15 @@ router.post('/api/tower/:towerId', requireLogin, requireGuild, editTowerValidati
 
     // Have to check if a stronghold already exists in the zone
     const strongholdInZone = await db('towers')
-    .select('*')
-    .where({
-        zone,
-        is_stronghold: true,
-        battle_id: currentBattleId[0]
-    });
-    
-    if(isStronghold && strongholdInZone.length !== 0) {
+                                .select('*')
+                                .where({
+                                    zone,
+                                    is_stronghold: true,
+                                    battle_id: currentBattleId[0]
+                                })
+                                .first();
+                                
+    if(isStronghold && strongholdInZone.length !== 0 && strongholdInZone.id != towerId) {
         return res.status(400).json({errors: [{msg: `Stronghold already exists in ${zone} zone.`}]});
     }
 
