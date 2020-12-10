@@ -83,6 +83,8 @@ class AutosuggestInput extends Component {
             </>
         )
     }
+
+    handleFocus = (e) => e.target.select();
     
     render() {
         const { 
@@ -105,6 +107,7 @@ class AutosuggestInput extends Component {
             value,
             label,
             onChange: this.onAutocompleteChange,
+            onFocus: this.handleFocus,
             required
         }
         

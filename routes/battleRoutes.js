@@ -264,8 +264,6 @@ router.post(
                     .first();
     
 
-    // const updatedEnemyUnit = updatedEnemyUnitRes[0];
-
     const differences = updatedUnitProperties(origEnemyUnit, updatedEnemyUnit, req.user.id);
 
     await db('tower_history')

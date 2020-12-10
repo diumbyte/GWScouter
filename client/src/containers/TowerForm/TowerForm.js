@@ -165,7 +165,7 @@ class TowerForm extends Component {
                 <div className="form-unit-container" key={unit}>
                     <AutosuggestInput
                         id={`${unit}-name`}
-                        title="Name"
+                        title="Name *"
                         name="name"
                         suggestionValue="id"
                         value={this.state[unit].name}
@@ -260,7 +260,7 @@ class TowerForm extends Component {
             >
                 <div className="tower-info">
                     <TextInput 
-                        title="Username"
+                        title="Username *"
                         name="username"
                         value={username}
                         className=""
@@ -282,7 +282,7 @@ class TowerForm extends Component {
                         ]}
                     />
                     <RadioInput 
-                        title="Zone"
+                        title="Zone *"
                         type="radio"
                         className=""
                         name="zone"
