@@ -1,7 +1,5 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 import './Guild.css'
 import CopyIcon from '../../assets/content-copy.svg';
 import RefreshIcon from '../../assets/refresh.svg';
@@ -141,13 +139,13 @@ class Guild extends Component {
         const { userId, userIsGuildAdmin, guildMembers } = this.state;
         return guildMembers.map((item, idx) => {
             return (
-                <Tr key={idx}>
-                    <Td>{`${item.username}`}</Td>
+                <tr key={idx}>
+                    <td><span className="guild-member">{`${item.username}`}</span></td>
                     { !userIsGuildAdmin
                         ? <></>
                         :
                             <>
-                            <Td>
+                            <td>
                                 {   userId === item.userId
                                     ? <span>&nbsp;</span>
                                     : 
@@ -159,8 +157,8 @@ class Guild extends Component {
                                     />
 
                                 }
-                            </Td>
-                            <Td>
+                            </td>
+                            <td>
                                 {   userId === item.userId
                                     ? <span>&nbsp;</span>
                                     : 
@@ -171,10 +169,10 @@ class Guild extends Component {
                                         onClick={() => this.onRemoveMember(item.userId)}
                                     />
                                 }
-                            </Td>
+                            </td>
                             </>
                     }
-                </Tr>
+                </tr>
             );
         });
     }
@@ -203,24 +201,24 @@ class Guild extends Component {
                         />
                     </div>
                 </div>
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th className="username">Username</Th>
+                <table>
+                    <thead>
+                        <tr>
+                            <th className="username">Username</th>
                             { !userIsGuildAdmin 
                                 ? <></> 
                                 :
                                     <>
-                                    <Th className="edit">Is Admin?</Th>
-                                    <Th className="remove">Remove</Th>
+                                    <th className="edit">Is Admin?</th>
+                                    <th className="remove">Remove</th>
                                     </>
                             }
-                        </Tr>
-                    </Thead>
-                    <Tbody>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {this.buildTableData()}
-                    </Tbody>
-                </Table>
+                    </tbody>
+                </table>
             </div>
         );
     }

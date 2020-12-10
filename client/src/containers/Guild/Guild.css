@@ -28,6 +28,7 @@
 
     .invite-container .invite-text {
         order: 1;
+        padding-top: 1rem;
     }
 }
 
@@ -42,6 +43,8 @@
     border-spacing: 1px;
     border: 1px solid var(--border-dark);
     table-layout: fixed;
+    width: 100%;
+    overflow: auto;
 }
 
 .guild-container thead tr {
@@ -74,4 +77,55 @@
 
 .guild-container td .svg-icon {
     margin: auto;
+}
+
+@media (max-width:768px) {
+    .guild-container table,
+    .guild-container thead,
+    .guild-container tbody,
+    .guild-container th,
+    .guild-container td,
+    .guild-container tr {
+        display: block;
+    }
+
+    .guild-container thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .guild-container td {
+        /* Behave like a row */
+        border: none;
+        /* border-bottom: 1px solid #eee; */
+        position: relative;
+        padding-left: 5rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .guild-container td > * {
+        /* margin-left: 5rem; */
+        padding-left: 4rem;
+    }
+
+    .guild-container td input {
+        margin-left: 4rem;
+    }
+
+    .guild-container td::before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 12px;
+        left: 6px;
+        width:45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    .guild-container td:nth-of-type(1)::before { content: "Username" }
+    .guild-container td:nth-of-type(2)::before { content: "Is Admin" }
+    .guild-container td:nth-of-type(3)::before { content: "Remove" }
 }

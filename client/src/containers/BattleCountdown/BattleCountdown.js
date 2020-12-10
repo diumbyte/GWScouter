@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import { toast } from 'react-toastify';
 import axios from 'axios';
 import Countdown from 'react-countdown';
 import ClockIcon from '../../assets/clock.svg'
 import { nextTargetDayOfWeek } from '../../helpers/dateHelpers';
+// import { toast } from 'react-toastify';
 import './BattleCountdown.css'
 
 export default class BattleCountdown extends Component {
@@ -22,8 +22,10 @@ export default class BattleCountdown extends Component {
         try {
             res = await axios.get(`/api/battle/time`);
         } catch(err) {
-            const { data } = err.response;
-            return data.errors.forEach(err => toast.error(`${err.msg}`))
+            // Commenting out since the parent component (Battle) would have already pushed an error toast.
+            // const { data } = err.response;
+            // return data.errors.forEach(err => toast.error(`${err.msg}`))
+            return;
         }
 
         const { data } = res;
