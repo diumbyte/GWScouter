@@ -1,6 +1,6 @@
 const updatedUnitProperties = (origEnemyUnit, updatedEnemyUnit, userId) => {
     const differences = Object.keys(origEnemyUnit)
-    .filter(k => origEnemyUnit[k] !== updatedEnemyUnit[k]);
+    .filter(key => origEnemyUnit[key] !== updatedEnemyUnit[key] && key !== 'unitName' && key !== 'artifactName');
 
     const changesHistory = differences.map(prop => {
         let message = '';
@@ -8,7 +8,7 @@ const updatedUnitProperties = (origEnemyUnit, updatedEnemyUnit, userId) => {
             case 'unit_id':
                 message = `Changed ${origEnemyUnit.heroName} to ${updatedEnemyUnit.heroName}`
                 break;
-            case 'artifact_id':
+            case 'artifact_id': 
                 message = `Changed ${origEnemyUnit.heroName}'s artifact to ${updatedEnemyUnit.artifactName}`
                 break;
             case 'speed':

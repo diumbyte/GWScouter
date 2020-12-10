@@ -19,7 +19,6 @@ router.get('/auth/logout', (req, res) => {
 });
 
 router.get('/auth/current_user', (req, res) => {
-    console.log(req.session);
     if(req.user) {
         const {discord_id, ...user} = req.user;
         return res.status(200).json(user);
