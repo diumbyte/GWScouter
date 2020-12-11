@@ -3,16 +3,10 @@ const { DateTime, Interval } = require('luxon');
 // ✓ Global: 10:00 UTC (starts and stops on the next day)
 
 const startBattleSession = () => {
-    if (!isActiveBattleSession()) {
-        return null;
-    }
     return DateTime.utc().set({hour: 10, minute: 0, second: 0});
 }
 
 const endBattleSession = (startBattleSession) => {
-    if (!isActiveBattleSession()) {
-        return null;
-    }
     return startBattleSession.plus({hour: 23, minute: 59});
 }
 
