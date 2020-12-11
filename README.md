@@ -5,6 +5,24 @@
 
 <img src="./readme_assets/site_preview.gif" width="100%">
 
+# Table of Contents
+- [Description](#description)
+- [Game Context](#game-context)
+  * [Combat](#combat)
+  * [Units](#units)
+  * [Guild Wars Information](#guild-wars-information)
+- [GWScouter Features](#gwscouter-features)
+  * [Battle](#battle)
+    + [Tower](#tower)
+      - [Add New Tower](#add-new-tower)
+      - [Edit Unit](#edit-unit)
+  * [Guild](#guild)
+    + [In a Guild](#in-a-guild)
+      - [Invite](#invite)
+      - [Members Table](#members-table)
+    + [Not in a Guild](#not-in-a-guild)
+  * [User](#user)
+
 # Description
 <p>A web app designed to help Epic Seven users collaborate by scouting enemy unit information in Guild War battles. GWScouter includes tower and unit creation and modification, guild management, and user customization. Desktop and mobile friendly.</p>
 
