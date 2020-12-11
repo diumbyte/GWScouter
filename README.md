@@ -6,7 +6,7 @@
 <img src="./readme_assets/site_preview.gif" width="100%">
 
 # Description
-<p>A web app designed to help Epic Seven users collaborate by scouting enemy unit information in Guild War battles. GWScouter includes tower and unit creation and modification, guild management, and user customization.  </p>
+<p>A web app designed to help Epic Seven users collaborate by scouting enemy unit information in Guild War battles. GWScouter includes tower and unit creation and modification, guild management, and user customization. Desktop and mobile friendly.</p>
 
 # Game Context
 ## Combat
@@ -26,7 +26,7 @@ The most important unit stats to keep track of are as follows
 ## Guild Wars Information
 * Guild wars is a PvP mode where each guild member assigns <b>two</b> teams of <b>three</b> units to defend their own <b>fort</b> and attack opposing enemy guild forts.
     * <img src="./readme_assets/tower_preview.jpg" width="60%">
-* There are four different "zones" where forts can be assigned. Top, mid, bot, and one main stronghold.
+* There are four different "zones" where forts can be assigned. Top, middle, bottom, and one main stronghold.
     * <img src="./readme_assets/battle_preview.jpg" width="50%">
     * <img src="./readme_assets/zone_preview.jpg" width="50%">
     
@@ -36,6 +36,24 @@ The most important unit stats to keep track of are as follows
 * Because GWScouter's main goal is to share information with other members a majority of the app's functionality requires authentication as well as being in a "guild". 
     * A link to a dummy account in a dummy guild has been provided at the top of this readme.
 ## Battle
+<img src="./readme_assets/app_battle_preview.jpg" width="80%">
+
+* On the battle overview a user can easily view, search, and edit all scouted enemy units.
+* The battle overview page displays a timer to remind the user of the active Guild War periods as mentioned [above](#guild-wars-information). 
+    * The app automatically resets and creates a new battle instance for all available guilds when a new battle period begins.
+* The user can navigate through the different "zones" (Top, Mid, Bot and Main) that mirror the game's formations as mentioned [above](#guild-wars-information).
+### Tower
+#### Add New Tower
+<img src="./readme_assets/app_tower_add_preview.jpg" width="80%">
+
+* The only required fields are all names as well as indicating which zone an enemy tower belongs in.
+* GWScouter helps users by autosuggesting the unit names as well as artifact names.
+
+#### Edit Unit
+<img src="./readme_assets/app_edit_unit_1_preview.jpg" width="40%">
+<img src="./readme_assets/app_edit_unit_preview.jpg" width="80%">
+
+* All guild members can update existing units with new information.
 
 ## Guild
 ### In a Guild
