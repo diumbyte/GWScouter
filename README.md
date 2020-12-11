@@ -1,3 +1,59 @@
 <h1 align="center">GWScouter</h1>
 
-<img src="./readme_assets/site_preview.jpg" width="100%">
+<h1 align="center"><a href="http://murmuring-fjord-28353.herokuapp.com/">Live Project</a></h1>
+<h2 align="center"><a href="http://murmuring-fjord-28353.herokuapp.com/TestUser">Dummy Account Auth</a></h2>
+
+<img src="./readme_assets/site_preview.gif" width="100%">
+
+# Description
+<p>A web app designed to help Epic Seven users collaborate by scouting enemy unit information in Guild War battles. GWScouter includes tower and unit creation and modification, guild management, and user customization.  </p>
+
+# Game Context
+## Combat
+<p>Epic Seven features various PvP combat systems that are all turn-based. Preparation plays a big part in winning these PvP matches. For example, you can adjust your strategy if you know that the enemy units will take the first turn over your own units.</p>
+
+## Units
+![Unit preview](./readme_assets/unit_preview.jpg)
+
+The most important unit stats to keep track of are as follows
+1. Artifact 
+    * An additional "equipment piece" that grants the unit bonus effects.
+2. Speed
+    * Determines the turn order of each unit. E.g the unit with the highest speed takes the first turn.
+3. Health
+4. Gear Sets
+    * Equipping certain amounts of the same equipment sets grants additional effects. E.g immunity set will make the unit "immune" from debuffs for until they complete their first turn.
+## Guild Wars Information
+* Guild wars is a PvP mode where each guild member assigns <b>two</b> teams of <b>three</b> units to defend their own <b>fort</b> and attack opposing enemy guild forts.
+    * <img src="./readme_assets/tower_preview.jpg" width="60%">
+* There are four different "zones" where forts can be assigned. Top, mid, bot, and one main stronghold.
+    * <img src="./readme_assets/battle_preview.jpg" width="50%">
+    * <img src="./readme_assets/zone_preview.jpg" width="50%">
+    
+* Guild wars only occur three times a week. Monday, Wednesday, and Friday at 10AM UTC and they run for 24 hours.
+
+# GWScouter Features
+* Because GWScouter's main goal is to share information with other members a majority of the app's functionality requires authentication as well as being in a "guild". 
+    * A link to a dummy account in a dummy guild has been provided at the top of this readme.
+## Battle
+
+## Guild
+### In a Guild
+<img src="./readme_assets/app_inguild_preview.jpg" width="100%">
+
+#### Invite
+* Each guild has a unique code and link that allows an authenticated user to join the guild.
+* This code can be refreshed by a **Guild Admin**.
+#### Members Table
+* For non-admin guild members the table only lists all the users in the guild.
+* Admin guild members are able to promote/demote other guild members to admin as well as remove them from the guild.
+### Not in a Guild
+<img src="./readme_assets/app_noguild_preview.jpg" width="100%">
+
+* User is able to create their own guild if they are not in one already.
+
+## User
+<img src="./readme_assets/app_user_preview.jpg" width="100%">
+
+* GWScouter requires authentication through Discord's OAuth2 service.
+* The user can choose to leave their current guild, edit their username, or logout of the current account.
