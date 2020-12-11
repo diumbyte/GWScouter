@@ -24,9 +24,11 @@ const App = () => {
       <Header />
       <Main>
           <Switch>
-            <TitledRoute exact path="/">Home page</TitledRoute>
+            <TitledRoute exact path="/">
+              <Redirect to="/User" />
+            </TitledRoute>
             <TitledRoute exact path="/Home">
-              <Redirect to="/"/>
+              <Redirect to="/User"/>
             </TitledRoute>
             <Route exact path="/TestUser" component={TestUser}/>
             <TitledRoute title="User Profile" exact path="/User" component={ User }></TitledRoute>
