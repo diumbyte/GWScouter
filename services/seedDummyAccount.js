@@ -129,7 +129,7 @@ const seedDummy = async () => {
         })
         .update({
             guild_id: dummyGuildId,
-            username: "GWScouter Test Account"
+            username: "GWScouter"
         })
 
     // Reset guild role to admin
