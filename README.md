@@ -59,6 +59,7 @@ The most important unit stats to keep track of are as follows
 * On the battle overview a user can easily view, search, and edit all scouted enemy units.
 * The battle overview page displays a timer to remind the user of the active Guild War periods as mentioned [above](#guild-wars-information). 
     * The app automatically resets and creates a new battle instance for all available guilds when a new battle period begins.
+    * The app still allows users to create/edit towers and units during inactive periods. This is to allow all users to explore the interface at all times. 
 * The user can navigate through the different "zones" (Top, Mid, Bot and Main) that mirror the game's formations as mentioned [above](#guild-wars-information).
 ### Tower
 #### Add New Tower
