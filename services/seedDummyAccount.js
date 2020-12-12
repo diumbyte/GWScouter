@@ -3,37 +3,18 @@ const db = require('../db');
 const getRandomIntNearNumber = (number, isHero) => {
     const heroIdMin = process.env.NODE_ENV === 'production' ? 986 : 1;
     const heroIdMax = process.env.NODE_ENV === 'production' ? 1183 : 198;
-    const artifactIdMin = process.env.NODE_ENV === 'production' ? 751 : 1;
-    const artifactIdMax = process.env.NODE_ENV === 'production' ? 901 : 151;
-    const range = 15;
-    const min = number - range;
-    const max = number + range;
-    console.log(number);
+    const artifactUnknown = process.env.NODE_ENV === 'production' ? 751 : 1;
+    const artifactIdMin = process.env.NODE_ENV === 'production' ? 760 : 10;
+    const artifactIdMax = process.env.NODE_ENV === 'production' ? 806 : 56;
 
     // Artifact id is unknown. Keep it as that.
-    if ( !isHero && (number === artifactIdMin) ){
+    if ( !isHero && (number === artifactUnknown) ){
         return number;
     }
 
-    if(isHero) {
-        if ((number - range) <= heroIdMin) {
-            return Math.floor(Math.random() * (max - number + 1) + number);
-        }
-        if((number + range) >= heroIdMax) {
-            return Math.floor(Math.random() * (number - min + 1) + min)
-        } else {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-    } else {
-        if ((number - range) <= artifactIdMin) {
-            return Math.floor(Math.random() * (max - number + 1) + number);
-        }
-        if((number + range) >= artifactIdMax) {
-            return Math.floor(Math.random() * (number - min + 1) + min)
-        } else {
-            return Math.floor(Math.random() * (max - min + 1) + min);
-        }
-    }
+    return isHero 
+                ? Math.floor(Math.random() * (heroIdMax - heroIdMin + 1) + heroIdMin)
+                : Math.floor(Math.random() * (artifactIdMax - artifactIdMin + 1) + artifactIdMin)
 }
 
 const dummyTowers = (battleId) => [
@@ -147,7 +128,8 @@ const seedDummy = async () => {
             id: dummyUserId
         })
         .update({
-            guild_id: dummyGuildId
+            guild_id: dummyGuildId,
+            username: "GWScouter Test Account"
         })
 
     // Reset guild role to admin
