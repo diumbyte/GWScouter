@@ -3,9 +3,7 @@ const passport = require('passport');
 const db = require('../db');
 const requireLogin = require('../middlewares/requireLogin');
 const userValidation = require('./validation/userValidation');
-
-const Keygrip = require('keygrip');
-const keys = require('../config/keys');
+const { seedDummy } = require('../services/seedDummyAccount');
 
 router.get('/auth/discord', passport.authenticate('discord'));
 
@@ -74,6 +72,7 @@ router.get('/auth/test_account_login', async (req, res) => {
             user: 9
         }
     }
+    seedDummy();
     res.json({});
 });
 

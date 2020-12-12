@@ -2,10 +2,7 @@ const cron = require('node-cron');
 const db = require('../db');
 const { startBattleSession, endBattleSession } = require('../helpers/dateHelpers');
 
-
-
 // 2,4,6 = Mon,Wed,Fri. At 10:00 UTC
-// CRON 
 // Update all battle current flags to false
 cron.schedule('0 10 * * Tuesday,Thursday,Saturday', async () => {
     console.log("Closing all current battles.")
@@ -22,8 +19,10 @@ cron.schedule('0 10 * * Monday,Wednesday,Friday', async () => {
     await db.transaction(async trx => {
         console.log("Retiring inactive battles");
 
-        await trx.raw(`UPDATE public.battles
-        SET current_battle=false,is_active=false;`);
+        await trx.raw(`DELETE FROM public.towers_history;`);
+        await trx.raw(`DELETE FROM public.enemy_units;`);
+        await trx.raw(`DELETE FROM public.towers;`);
+        await trx.raw(`DELETE FROM public.battles;`);
     
         console.log("Inactive battles retired");
 
@@ -45,8 +44,9 @@ cron.schedule('0 10 * * Monday,Wednesday,Friday', async () => {
         });
     
         await trx('battles')
+            .returning('id')
             .insert(battlesToInsert);
-    
+
         console.log("Successfully created battles."); 
     });
     
