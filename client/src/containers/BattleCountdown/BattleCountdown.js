@@ -40,7 +40,7 @@ export default class BattleCountdown extends Component {
         })
     }
 
-    countdownRenderer = ({hours, minutes, seconds, completed, ...props}) => {
+    countdownRenderer = ({formatted: {hours, minutes, seconds}, completed, ...props}) => {
         let timeFormat;
         const { isActiveBattle } = this.state;
 
