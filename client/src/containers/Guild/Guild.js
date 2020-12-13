@@ -149,7 +149,7 @@ class Guild extends Component {
     }
 
     buildTableData = () => {
-        const { userId, userIsGuildAdmin, guildMembers } = this.state;
+        const { userIsGuildAdmin, guildMembers } = this.state;
         return guildMembers.map((item, idx) => {
             return (
                 <tr key={idx}>

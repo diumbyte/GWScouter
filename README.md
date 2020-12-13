@@ -1,7 +1,7 @@
 <h1 align="center">GWScouter</h1>
 
-<h1 align="center"><a href="http://murmuring-fjord-28353.herokuapp.com/">Live Project</a></h1>
-<h2 align="center"><a href="http://murmuring-fjord-28353.herokuapp.com/TestUser">Dummy Account Auth</a></h2>
+<h1 align="center"><a href="https://gwscouter.herokuapp.com/">Live Project</a></h1>
+<h2 align="center"><a href="https://gwscouter.herokuapp.com/TestUser">Dummy Account Auth</a></h2>
 
 <img src="./readme_assets/site_preview.gif" width="100%">
 
