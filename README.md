@@ -40,7 +40,7 @@ The most important unit stats to keep track of are as follows
     * Determines the turn order of each unit. E.g the unit with the highest speed takes the first turn.
 3. Health
 4. Gear Sets
-    * Equipping certain amounts of the same equipment sets grants additional effects. E.g immunity set will make the unit "immune" from debuffs for until they complete their first turn.
+    * Equipping certain amounts of the same equipment sets grants additional effects. E.g immunity set will make the unit "immune" from debuffs until they complete their first turn.
 ## Guild Wars Information
 * Guild wars is a PvP mode where each guild member assigns <b>two</b> teams of <b>three</b> units to defend their own <b>fort</b> and attack opposing enemy guild forts.
     * <img src="./readme_assets/tower_preview.jpg" width="60%">
