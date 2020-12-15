@@ -13,7 +13,7 @@ cron.schedule('0 10 * * Tuesday,Thursday,Saturday', async () => {
     console.log("Battles closed.")
 }, {timezone: "Etc/UTC"});
 
-cron.schedule('55 22 * * Monday,Wednesday,Friday', async () => {
+cron.schedule('0 10 * * Monday,Wednesday,Friday', async () => {
     // Trx: If function returns successfully then trx.commit() is implicitly called.
     // If an error is thrown by any of the funcs then trx.rollback() is implicitly called.
     await db.transaction(async trx => {
