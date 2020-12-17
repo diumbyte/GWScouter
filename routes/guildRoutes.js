@@ -6,6 +6,7 @@ const requireGuildAdmin = require('../middlewares/requireGuildAdmin');
 const { nextTargetDayOfWeek, isActiveBattleSession, startBattleSession, endBattleSession } = require('../helpers/dateHelpers')
 const adminValidation = require('./validation/adminEditMemberValidation');
 const newGuildValidation = require('./validation/newGuildValidation');
+const editGuildValidation = require('./validation/editGuildValidation');
 
 const db = require('../db');
 
@@ -215,6 +216,21 @@ router.post('/api/guild/join/:inviteCode', requireLogin, async (req, res) => {
             });
     
     res.status(200).json("Success");
+});
+
+router.post('/api/guild/:guildId', requireGuild, requireGuildAdmin, editGuildValidation, async (req,res) => {
+    const { guildName } = req.body;
+    const { guildId } = req.params;
+
+    await db('guilds')
+        .where({
+            id: guildId
+        })
+        .update({
+            name: guildName
+        });
+
+    res.json("Success");
 });
 
 module.exports = router;

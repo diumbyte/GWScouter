@@ -8,6 +8,11 @@
 .guild-name {
     border-bottom: 2px solid var(--border-dark);
     padding-bottom: .5rem;
+    display: flex;
+}
+
+.guild-name span {
+    margin-left: .75rem;
 }
 
 .invite-container {

@@ -1,11 +1,15 @@
 import { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { Modal } from 'react-responsive-modal';
+import 'react-responsive-modal/styles.css';
 import './Guild.css'
 import CopyIcon from '../../assets/content-copy.svg';
 import RefreshIcon from '../../assets/refresh.svg';
 import RemoveIcon from '../../assets/minus-circle.svg';
+import PencilIcon from '../../assets/pencil-edit.svg'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import GuildEdit from '../GuildEdit/GuildEdit';
 
 class Guild extends Component {
     constructor(props) {
@@ -17,6 +21,7 @@ class Guild extends Component {
             userIsGuildAdmin: false,
             guildMembers: [],
             guildInviteLink: '',
+            openModal: false,
         }
     }
 
@@ -201,50 +206,75 @@ class Guild extends Component {
             );
         });
     }
+
+    onOpenModal = () => {this.setState({openModal: true})}
+    onCloseModal = () => {this.setState({openModal: false})}
+    onGuildEdit = (newName) => {this.setState({guildName: newName})}
     
     render() {
         const { guildName, userIsGuildAdmin } = this.state;
         return (
-            <div className="guild-container">
-                <h2 className="guild-name">{guildName}</h2>
-                <h3>Invite Link:</h3>
-                <div className="invite-container">
-                    <p className="invite-text">{this.state.guildInviteLink}</p>
-                    <div className="invite-icons">
-                        <img 
-                            src={CopyIcon} 
-                            className="svg-icon" 
-                            alt="Copy invite link icon"
-                            onClick={this.onCopyInviteLink}
-                        /> 
-                        <img 
-                            style={!userIsGuildAdmin ? {display: 'none'} : {}}
-                            src={RefreshIcon} 
-                            className="svg-icon" 
-                            onClick={this.onRefreshInviteLink}
-                            alt="Refresh invite link icon"
+            <>
+                <div className="guild-container">
+                    <h2 className="guild-name">
+                    { userIsGuildAdmin 
+                        ? <img 
+                            src={PencilIcon} 
+                            alt="Edit Guild Name" 
+                            className="svg-icon"
+                            onClick={this.onOpenModal}
                         />
+                        : <></>
+                    }
+                    <span>{guildName}</span>
+                    </h2>
+                    <h3>Invite Link:</h3>
+                    <div className="invite-container">
+                        <p className="invite-text">{this.state.guildInviteLink}</p>
+                        <div className="invite-icons">
+                            <img 
+                                src={CopyIcon} 
+                                className="svg-icon" 
+                                alt="Copy invite link icon"
+                                onClick={this.onCopyInviteLink}
+                            /> 
+                            <img 
+                                style={!userIsGuildAdmin ? {display: 'none'} : {}}
+                                src={RefreshIcon} 
+                                className="svg-icon" 
+                                onClick={this.onRefreshInviteLink}
+                                alt="Refresh invite link icon"
+                            />
+                        </div>
                     </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th className="username">Username</th>
+                                { !userIsGuildAdmin 
+                                    ? <></> 
+                                    :
+                                        <>
+                                        <th className="edit">Is Admin?</th>
+                                        <th className="remove">Remove</th>
+                                        </>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.buildTableData()}
+                        </tbody>
+                    </table>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th className="username">Username</th>
-                            { !userIsGuildAdmin 
-                                ? <></> 
-                                :
-                                    <>
-                                    <th className="edit">Is Admin?</th>
-                                    <th className="remove">Remove</th>
-                                    </>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.buildTableData()}
-                    </tbody>
-                </table>
-            </div>
+                <Modal open={this.state.openModal} onClose={this.onCloseModal} classNames={{modal: 'customModal'}}>
+                    <GuildEdit 
+                        guildId={this.state.guildId}
+                        guildName={guildName}
+                        onCloseModal={this.onCloseModal}
+                        onGuildEdit={this.onGuildEdit}
+                    />
+                </Modal>
+            </>
         );
     }
 }
