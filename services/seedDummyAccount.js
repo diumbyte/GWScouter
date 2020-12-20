@@ -172,7 +172,6 @@ const seedDummy = async () => {
                                 .where({
                                     battle_id: battleId
                                 });
-    console.log(towerIDsInDummyGuild);
 
     await Promise.all(towerIDsInDummyGuild.map(async towerId => {
         await db.raw(`DELETE FROM public.tower_history WHERE tower_id=${towerId};`);

@@ -6,9 +6,7 @@ export default class TestUser extends Component {
         await axios.get('/auth/test_account_login');
 
 
-        window.location.href = '/';
-
-
+        window.location.href = '/Battle/Top';
     }
 
     render() {
