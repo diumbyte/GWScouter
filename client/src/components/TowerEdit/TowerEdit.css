@@ -1,3 +1,11 @@
 /* .tower-edit-container { 
     display: flex;
 } */
+
+.delete-button {
+    background-color: red;
+}
+
+.tower-edit-container .tower-buttons {
+    justify-content: space-around;
+}

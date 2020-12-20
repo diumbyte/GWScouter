@@ -57,6 +57,21 @@ class TowerEdit extends Component {
         goBack();
     }
 
+    onDelete = async () => {
+        const { towerId } = this.props.match.params;
+        const { goBack } = this.props.history;
+
+        try {
+            await axios.delete(`/api/tower/${towerId}`);
+        } catch(err) {
+            const { data } = err.response;
+
+            return data.errors.forEach(err => toast.error(`${err.msg}`))
+        }
+
+        goBack();
+    }
+
     render() {
         const {username, isStronghold, zone} = this.state;
         const { goBack } = this.props.history;
@@ -108,7 +123,10 @@ class TowerEdit extends Component {
                         }]}
                     />
                 </div>
-                <div className="row">
+                <div className="row tower-buttons">
+                    <div className="submit-button delete-button" onClick={this.onDelete}>
+                        Delete
+                    </div>
                     <div className="submit-button" onClick={this.onSubmit}>
                         Save
                     </div>

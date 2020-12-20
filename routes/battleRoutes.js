@@ -329,7 +329,32 @@ router.post('/api/tower/:towerId', requireLogin, requireGuild, editTowerValidati
                 is_stronghold: isStronghold
             })
     
-    res.json(":)");
+    res.json("Success");
 });
+
+router.delete("/api/tower/:towerId", requireLogin, requireGuild, async (req, res) => {
+    const { towerId } = req.params;
+
+    // Delete tables that have a FK to towers first
+    await db('tower_history')
+        .where({
+            tower_id: towerId
+        })
+        .del();
+
+    await db('enemy_units')
+        .where({
+            tower_id: towerId
+        })
+        .del();
+    
+    await db('towers')
+        .where({
+            id: towerId
+        })
+        .del();
+    
+    res.json("Success");
+})
 
 module.exports = router;
