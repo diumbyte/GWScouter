@@ -14,7 +14,10 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: require('./config/keys').PGConnection,
+    connection: {
+      connectionString: require('./config/keys').PGConnection,
+      ssl: { rejectUnauthorized: false }
+    },
     migrations: {
       tableName: 'knex_migrations',
       directory: `${ __dirname }/db/migrations`
