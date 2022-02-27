@@ -142,7 +142,7 @@ router.post('/api/guild/new', requireLogin, newGuildValidation, async (req, res)
         return res.status(400).json({ errors: [{msg: "Guild name already taken."}]});
     }
 
-    const newGuildId = newGuild[0];
+    const newGuildId = newGuild[0].id;
     // Update current user that created guild 
     await db('users')
             .where({

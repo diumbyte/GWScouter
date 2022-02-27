@@ -166,13 +166,13 @@ const seedDummy = async () => {
                         .first();
     const { id: battleId } = battle;
 
+    // console.log(`battle: ${battleId}`);
     // Clear existing battle data
     const towerIDsInDummyGuild = await db('towers')
                                 .pluck('id')
                                 .where({
                                     battle_id: battleId
                                 });
-
     await Promise.all(towerIDsInDummyGuild.map(async towerId => {
         await db.raw(`DELETE FROM public.tower_history WHERE tower_id=${towerId};`);
         await db.raw(`DELETE FROM public.enemy_units WHERE tower_id=${towerId};`);
@@ -185,9 +185,9 @@ const seedDummy = async () => {
         const towerId = await db('towers')
                             .returning('id')
                             .insert(tower);
-
         // await Promise.all()
-        dummyEnemyUnits(parseInt(towerId)).map(async enemyUnit => {
+        dummyEnemyUnits(parseInt(towerId[0].id))
+        .map(async enemyUnit => {
             await db('enemy_units')
                 .insert(enemyUnit);
         })

@@ -140,7 +140,9 @@ router.post(
         return res.status(400).json({errors: [{msg: `Stronghold already exists in ${zone} zone.`}]});
     }
 
-                            
+                          
+    // console.log("currentBattleId");
+    // console.log(currentBattleId);
     // Create Tower
     const newTowerId = await db('towers')
                 .returning('id')
@@ -151,10 +153,12 @@ router.post(
                     zone
                 });
 
+    // console.log("newTowerId");
+    // console.log(newTowerId);
     // Update Tower History
     await db('tower_history')
                 .insert({
-                    tower_id: newTowerId[0],
+                    tower_id: newTowerId[0].id,
                     user_id: req.user.id,
                     action: `Created tower`
                 })
@@ -173,7 +177,7 @@ router.post(
                         : unit.artifactId;
         
         return {
-            tower_id: newTowerId[0],
+            tower_id: newTowerId[0].id,
             team: unit.team,
             unit_id: unit.unitId,
             artifact_id,
